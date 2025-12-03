@@ -75,7 +75,7 @@ const InputSection: React.FC<InputSectionProps> = ({ ratings, onRate, onNoteChan
           >
             
             {/* Category Header Frame - Refined */}
-            <div className="px-5 py-5 md:px-8 border-b border-slate-100 dark:border-white/5 flex items-center gap-5 group bg-slate-50/50 dark:bg-slate-900/30">
+            <div className="px-5 py-5 md:px-8 border-b border-slate-100 dark:border-white/5 flex items-center gap-4 md:gap-5 group bg-slate-50/50 dark:bg-slate-900/30">
                <div className={`flex items-center justify-center w-12 h-12 rounded-2xl ${config.bg} ${config.color} border ${config.border} shadow-inner transition-transform duration-300 group-hover:scale-105 shrink-0`}>
                   {config.icon}
                </div>
@@ -129,7 +129,7 @@ const KPIItemRow: React.FC<KPIItemRowProps> = ({ item, currentRating, onRate, on
   };
 
   // Determine styles based on rating
-  let containerClassName = `p-5 relative group bg-white dark:bg-[#151e32] rounded-2xl border transition-all duration-300 ease-out `;
+  let containerClassName = `p-4 md:p-5 relative group bg-white dark:bg-[#151e32] rounded-2xl border transition-all duration-300 ease-out `;
   let leftBorderClass = "hidden"; 
   
   if (currentRating?.level === RatingLevel.GOOD) {
@@ -154,11 +154,11 @@ const KPIItemRow: React.FC<KPIItemRowProps> = ({ item, currentRating, onRate, on
          <div className={`absolute left-0 top-6 bottom-6 w-1 rounded-r-full ${leftBorderClass} animate-in fade-in duration-500 shadow-[0_0_8px_currentColor]`}></div>
       )}
 
-      <div className="flex flex-col xl:flex-row gap-6 lg:gap-8">
+      <div className="flex flex-col xl:flex-row gap-5 md:gap-6 lg:gap-8">
          
          {/* LEFT: Content & Checklist */}
          <div className="flex-1 flex flex-col justify-center">
-            <div className="flex items-start gap-4 mb-2">
+            <div className="flex items-start gap-3 md:gap-4 mb-2">
                <div className={`flex items-center justify-center w-8 h-8 rounded-lg border text-[11px] font-bold shrink-0 mt-0.5 transition-colors duration-300 ${
                  currentRating 
                  ? 'bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900' 
@@ -200,7 +200,7 @@ const KPIItemRow: React.FC<KPIItemRowProps> = ({ item, currentRating, onRate, on
          <div className="w-full xl:w-[400px] shrink-0 flex flex-col gap-4 border-t xl:border-t-0 xl:border-l border-slate-100 dark:border-white/5 pt-4 xl:pt-0 xl:pl-6 justify-center">
             
             {/* Rating Buttons - Enhanced Visuals */}
-            <div className="grid grid-cols-3 gap-2.5 h-auto min-h-[100px]">
+            <div className="grid grid-cols-3 gap-2 md:gap-2.5 h-auto min-h-[100px]">
                {/* Good Button */}
                <button
                   onClick={() => handleSelect(RatingLevel.GOOD)}
@@ -214,7 +214,7 @@ const KPIItemRow: React.FC<KPIItemRowProps> = ({ item, currentRating, onRate, on
                     <CheckCircle size={18} className={`transition-colors duration-300 ${currentRating?.level === RatingLevel.GOOD ? 'text-white' : 'text-emerald-500'}`} />
                   </div>
                   <div className="flex flex-col gap-0.5 w-full overflow-hidden justify-center py-0.5">
-                      <span className={`text-[11px] font-bold uppercase leading-normal tracking-wide ${currentRating?.level === RatingLevel.GOOD ? 'text-white' : 'text-emerald-700 dark:text-emerald-400'}`}>
+                      <span className={`text-[10px] md:text-[11px] font-bold uppercase leading-normal tracking-wide ${currentRating?.level === RatingLevel.GOOD ? 'text-white' : 'text-emerald-700 dark:text-emerald-400'}`}>
                         {item.criteria[RatingLevel.GOOD].label}
                       </span>
                       <span className={`text-[9px] font-medium px-0.5 line-clamp-3 leading-tight whitespace-normal ${
@@ -238,7 +238,7 @@ const KPIItemRow: React.FC<KPIItemRowProps> = ({ item, currentRating, onRate, on
                     <AlertCircle size={18} className={`transition-colors duration-300 ${currentRating?.level === RatingLevel.AVERAGE ? 'text-white' : 'text-amber-500'}`} />
                   </div>
                   <div className="flex flex-col gap-0.5 w-full overflow-hidden justify-center py-0.5">
-                      <span className={`text-[11px] font-bold uppercase leading-normal tracking-wide ${currentRating?.level === RatingLevel.AVERAGE ? 'text-white' : 'text-amber-700 dark:text-amber-500'}`}>
+                      <span className={`text-[10px] md:text-[11px] font-bold uppercase leading-normal tracking-wide ${currentRating?.level === RatingLevel.AVERAGE ? 'text-white' : 'text-amber-700 dark:text-amber-500'}`}>
                         {item.criteria[RatingLevel.AVERAGE].label}
                       </span>
                       <span className={`text-[9px] font-medium px-0.5 line-clamp-3 leading-tight whitespace-normal ${
@@ -262,7 +262,7 @@ const KPIItemRow: React.FC<KPIItemRowProps> = ({ item, currentRating, onRate, on
                     <XCircle size={18} className={`transition-colors duration-300 ${currentRating?.level === RatingLevel.WEAK ? 'text-white' : 'text-rose-500'}`} />
                   </div>
                   <div className="flex flex-col gap-0.5 w-full overflow-hidden justify-center py-0.5">
-                      <span className={`text-[11px] font-bold uppercase leading-normal tracking-wide ${currentRating?.level === RatingLevel.WEAK ? 'text-white' : 'text-rose-700 dark:text-rose-400'}`}>
+                      <span className={`text-[10px] md:text-[11px] font-bold uppercase leading-normal tracking-wide ${currentRating?.level === RatingLevel.WEAK ? 'text-white' : 'text-rose-700 dark:text-rose-400'}`}>
                         {item.criteria[RatingLevel.WEAK].label}
                       </span>
                       <span className={`text-[9px] font-medium px-0.5 line-clamp-3 leading-tight whitespace-normal ${

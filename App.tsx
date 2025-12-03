@@ -6,7 +6,7 @@ import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import { EvaluationState, RatingLevel } from './types';
 import { KPI_DATA } from './constants';
-import { User, CreditCard, Upload, Printer, X, Calendar, Flame } from 'lucide-react';
+import { User, CreditCard, Upload, Printer, X, Calendar } from 'lucide-react';
 import DashboardReport from './components/DashboardReport';
 import { authService, UserAccount } from './services/authService';
 
@@ -182,7 +182,7 @@ function App() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-slate-100 font-sans selection:bg-indigo-500/30 print:bg-white transition-colors duration-500 overflow-hidden relative">
+    <div className="min-h-screen xl:h-screen flex flex-col bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-slate-100 font-sans selection:bg-indigo-500/30 print:bg-white transition-colors duration-500 xl:overflow-hidden relative overflow-x-hidden">
       
       {isLoggedIn && (
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none no-print">
@@ -203,41 +203,43 @@ function App() {
         />
       )}
 
-      <main className="flex-1 relative z-10 w-full max-w-[1920px] mx-auto overflow-hidden flex flex-col">
+      <main className="flex-1 relative z-10 w-full max-w-[1920px] mx-auto xl:overflow-hidden flex flex-col">
         {!isLoggedIn ? (
           <LandingPage onLoginSuccess={handleLoginSuccess} />
         ) : (
-          <div className="flex flex-col xl:flex-row h-full">
+          <div className="flex flex-col xl:flex-row xl:h-full h-auto">
             
-            <div className="flex-1 order-2 xl:order-1 no-print min-w-0 h-full overflow-y-auto scroll-smooth custom-scrollbar">
+            {/* Left Column: Inputs */}
+            <div className="flex-1 order-2 xl:order-1 no-print min-w-0 xl:h-full h-auto xl:overflow-y-auto scroll-smooth custom-scrollbar">
               <div className="p-4 md:p-8 lg:p-10 space-y-8 max-w-[1600px] mx-auto">
                 
                 <div className="group relative bg-white/80 dark:bg-[#0f172a]/60 backdrop-blur-xl rounded-[24px] shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-white/50 dark:border-white/5 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-indigo-500/30">
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]"></div>
 
-                  <div className="px-6 md:px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10 bg-gradient-to-b from-white/50 to-transparent dark:from-white/5 dark:to-transparent border-b border-slate-100 dark:border-white/5">
-                    <div className="flex items-center gap-5">
-                      <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/50 dark:to-slate-900 text-indigo-600 dark:text-indigo-400 shadow-inner border border-white/60 dark:border-white/10">
-                        <User size={26} strokeWidth={2} />
+                  <div className="px-5 py-5 md:px-8 md:py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative z-10 bg-gradient-to-b from-white/50 to-transparent dark:from-white/5 dark:to-transparent border-b border-slate-100 dark:border-white/5">
+                    <div className="flex items-center gap-4 md:gap-5">
+                      <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-950/50 dark:to-slate-900 text-indigo-600 dark:text-indigo-400 shadow-inner border border-white/60 dark:border-white/10 shrink-0">
+                        <User size={24} strokeWidth={2} className="md:w-[26px] md:h-[26px]" />
                       </div>
                       <div>
-                        <h2 className="text-xl font-bold text-slate-800 dark:text-white leading-tight">Thông tin nhân sự</h2>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5 tracking-wide">Cập nhật hồ sơ đánh giá định kỳ</p>
+                        <h2 className="text-lg md:text-xl font-bold text-slate-800 dark:text-white leading-tight">Thông tin nhân sự</h2>
+                        <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5 tracking-wide">Cập nhật hồ sơ đánh giá định kỳ</p>
                       </div>
                     </div>
                     
-                    <div className="relative">
+                    <div className="relative self-start md:self-auto">
                       <input type="file" id="logo-upload" accept="image/*" className="hidden" onChange={handleLogoUpload} />
                       <label 
                         htmlFor="logo-upload" 
-                        className="cursor-pointer group/btn flex items-center gap-2 text-[11px] font-bold uppercase tracking-wide bg-white dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 px-5 py-3 rounded-xl transition-all border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 shadow-sm backdrop-blur-sm"
+                        className="cursor-pointer group/btn flex items-center gap-2 text-[10px] md:text-[11px] font-bold uppercase tracking-wide bg-white dark:bg-slate-800/80 hover:bg-indigo-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 px-4 py-2.5 md:px-5 md:py-3 rounded-xl transition-all border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 shadow-sm backdrop-blur-sm"
                       >
                         {companyLogo ? (
                           <>
                             <div className="w-5 h-5 rounded-full overflow-hidden border border-slate-200 bg-white flex items-center justify-center">
                               <img src={companyLogo} alt="Logo" className="w-full h-full object-cover" />
                             </div>
-                            <span className="text-emerald-600 dark:text-emerald-400">Đã tải Logo</span>
+                            <span className="text-emerald-600 dark:text-emerald-400 hidden sm:inline">Đã tải Logo</span>
+                            <span className="text-emerald-600 dark:text-emerald-400 sm:hidden">Xong</span>
                           </>
                         ) : (
                           <>
@@ -249,7 +251,7 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="p-6 md:p-8 grid grid-cols-1 xl:grid-cols-3 gap-6 relative z-10">
+                  <div className="p-5 md:p-8 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6 relative z-10">
                     <div className="space-y-2">
                         <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1">Họ và tên nhân viên</label>
                         <div className="relative group/input">
@@ -369,9 +371,9 @@ function App() {
             </div>
 
             {/* Right Column: Results - Framed Widget Mode */}
-            {/* Added xl:order-2 to move it to the right visually because Main Content is xl:order-1 */}
-            <div className="w-full xl:w-[380px] shrink-0 h-full overflow-hidden flex flex-col relative z-20 pointer-events-none xl:pointer-events-auto xl:order-2">
-               <div className="h-full p-4 xl:p-6 pointer-events-auto">
+            {/* Added responsive classes: h-auto on mobile, order-last to keep at bottom on mobile */}
+            <div className="w-full xl:w-[380px] shrink-0 xl:h-full h-auto flex flex-col relative z-20 pointer-events-none xl:pointer-events-auto xl:order-2 order-2 p-4 xl:p-4 mb-6 xl:mb-0">
+               <div className="h-full pointer-events-auto">
                    <ResultsPanel 
                       categoryScores={categoryScores}
                       totalScore={totalScore}
@@ -393,12 +395,12 @@ function App() {
         <div className="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-md flex justify-center overflow-y-auto p-4 md:p-8 custom-scrollbar">
             
             {/* Floating Top-Right Actions */}
-            <div className="fixed top-6 right-6 flex items-center gap-0 bg-slate-800/90 border border-white/10 rounded-lg p-1 shadow-2xl z-[110] backdrop-blur-md animate-in slide-in-from-top-4 fade-in duration-500">
+            <div className="fixed top-4 right-4 md:top-6 md:right-6 flex items-center gap-0 bg-slate-800/90 border border-white/10 rounded-lg p-1 shadow-2xl z-[110] backdrop-blur-md animate-in slide-in-from-top-4 fade-in duration-500">
                  <button 
                     onClick={handlePrint} 
-                    className="flex items-center gap-2 px-4 py-2 bg-white text-slate-900 rounded-md font-bold text-xs hover:bg-indigo-50 transition-colors uppercase tracking-wide shadow-sm"
+                    className="flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 bg-white text-slate-900 rounded-md font-bold text-xs hover:bg-indigo-50 transition-colors uppercase tracking-wide shadow-sm"
                  >
-                    <Printer size={14} /> In Báo Cáo
+                    <Printer size={14} /> <span className="hidden sm:inline">In Báo Cáo</span><span className="sm:hidden">In</span>
                  </button>
                  <div className="w-px h-6 bg-white/10 mx-1"></div>
                  <button 
