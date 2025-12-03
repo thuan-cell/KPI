@@ -1,7 +1,8 @@
 
+
 import React from 'react';
 import { KPI_DATA } from '../constants';
-import { EvaluationState } from '../types';
+import { EvaluationState, EmployeeInfo } from '../types';
 import { 
   BarChart, 
   Bar, 
@@ -13,8 +14,7 @@ import {
   Cell,
   Legend
 } from 'recharts';
-import { CheckCircle2 } from 'lucide-react';
-import { EmployeeInfo } from '../App';
+import { CheckCircle2, AlertTriangle } from 'lucide-react';
 
 interface DashboardReportProps {
   ratings: EvaluationState;
@@ -26,6 +26,7 @@ interface DashboardReportProps {
   categoryScores: any[];
   employeeInfo: EmployeeInfo;
   logoUrl: string | null;
+  penaltyApplied?: boolean;
 }
 
 const DashboardReport: React.FC<DashboardReportProps> = ({
@@ -37,7 +38,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   ranking,
   categoryScores,
   employeeInfo,
-  logoUrl
+  logoUrl,
+  penaltyApplied
 }) => {
   const [year, month] = selectedMonth.split('-');
   const reportDateObj = employeeInfo.reportDate ? new Date(employeeInfo.reportDate) : new Date();
@@ -116,12 +118,18 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
             <div className="text-5xl font-extrabold text-blue-900 leading-none mb-1 print:text-4xl">{Number(totalScore).toFixed(2)}</div>
             <div className="text-slate-400 text-[10px] font-medium mb-3 print:mb-1">/ {maxTotalScore} điểm tối đa</div>
             <div className={`px-4 py-1 rounded-full text-[10px] font-bold border ${
-               percent >= 95 ? 'bg-green-100 text-green-800 border-green-200' :
-               percent >= 85 ? 'bg-blue-100 text-blue-800 border-blue-200' :
+               percent >= 90 ? 'bg-green-100 text-green-800 border-green-200' :
+               percent >= 70 ? 'bg-blue-100 text-blue-800 border-blue-200' :
                'bg-red-100 text-red-800 border-red-200'
             }`}>
                XẾP LOẠI: {ranking.toUpperCase()}
             </div>
+            
+            {penaltyApplied && (
+               <div className="text-[10px] font-bold text-red-600 mt-2 flex items-center justify-center gap-1 bg-red-50 px-2 py-1 rounded border border-red-100">
+                 <AlertTriangle size={12} /> Đã trừ 30 điểm (Lỗi Yếu)
+               </div>
+            )}
          </div>
 
          {/* PIE CHART (Donut Style - Replacing Radar) */}

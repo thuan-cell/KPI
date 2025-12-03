@@ -1,4 +1,5 @@
 
+
 // KPI_GiamDoc_PhanXuong.ts
 // Full TypeScript module to assess performance of a Giám đốc phân xưởng
 // - Includes types, RatingLevel enum, KPI_DATA (structure you provided, refined),
@@ -58,7 +59,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Không có gián đoạn cấp hơi', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Có sự cố, nhưng không phải bồi thường', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Có sự cố, nhưng không phải bồi thường', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Để xảy ra sự gián đoạn cấp hơi phải bồi thường', scorePercent: 0.0 },
         },
       },
@@ -72,7 +73,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Ổn định, không có khiếu nại của khách hàng', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Có chênh lệch nhỏ so với tiêu chuẩn', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Có chênh lệch nhỏ so với tiêu chuẩn', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Bị khách hàng phản ánh về chất lượng', scorePercent: 0 },
         },
       },
@@ -86,7 +87,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Tiêu hao nhiên liệu ≤ định mức', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Vượt định mức cho phép (+1–5%)', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Vượt định mức cho phép (+1–5%)', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Vượt quá định mức cho phép (>10%)', scorePercent: 0.0 },
         },
       },
@@ -106,7 +107,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Không có sự cố Khí Thải, ATLĐ & PCCC', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Có vi phạm nhỏ, đã khắc phục ngay', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Có vi phạm nhỏ, đã khắc phục ngay', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Vi phạm nghiêm trọng hoặc tái diễn nhiều lần', scorePercent: 0.0 },
         },
       },
@@ -120,7 +121,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Đảm bảo 100% nhân sự tuân thủ nội quy', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Nhắc nhở một số trường hợp vi phạm nhỏ', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Nhắc nhở một số trường hợp vi phạm nhỏ', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Có nhân sự vi phạm kỷ luật nghiêm trọng', scorePercent: 0.0 },
         },
       },
@@ -140,7 +141,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Thực hiện kiểm tra đầy đủ 100% theo lịch tháng', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Thực hiện kiểm tra đạt 70–80% kế hoạch', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Thực hiện kiểm tra đạt 70–80% kế hoạch', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Thực hiện kiểm tra dưới 70% kế hoạch', scorePercent: 0.0 },
         },
       },
@@ -154,7 +155,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Hoàn thành ≥98% hạng mục bảo trì', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Hoàn thành 70–80% hạng mục bảo trì', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Hoàn thành 70–80% hạng mục bảo trì', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Không ngừng máy bảo trì đúng HĐ', scorePercent: 0 },
         },
       },
@@ -168,7 +169,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Kiểm soát tốt 5S, không lỗi tái diễn', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Còn lỗi vi phạm nhẹ, ít tái diễn', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Còn lỗi vi phạm nhẹ, ít tái diễn', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: '5S không đạt, lỗi tái diễn thường xuyên', scorePercent: 0.0 },
         },
       },
@@ -182,7 +183,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Báo cáo đầy đủ, chính xác và đúng thời hạn', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Báo cáo trễ nhẹ hoặc phải nhắc nhở', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Báo cáo trễ nhẹ hoặc phải nhắc nhở', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Không gửi báo cáo hoặc báo cáo không đúng', scorePercent: 0.0 },
         },
       },
@@ -202,7 +203,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: 'Đảm bảo đủ nhân sự, không trống ca', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Thiếu hụt nhân sự nhưng đã xử lý ổn thỏa', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Thiếu hụt nhân sự nhưng đã xử lý ổn thỏa', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Thiếu nhân sự gây ảnh hưởng vận hành', scorePercent: 0.0 },
         },
       },
@@ -216,7 +217,7 @@ const RAW_DATA = [
         ],
         criteria: {
           [RatingLevel.GOOD]: { label: 'Tốt', description: '100% nhân viên mới được đào tạo đạt yêu cầu', scorePercent: 1.0 },
-          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Đào tạo đạt yêu cầu ở mức khá (70-94%)', scorePercent: 0.4 },
+          [RatingLevel.AVERAGE]: { label: 'Trung bình', description: 'Đào tạo đạt yêu cầu ở mức khá (70-94%)', scorePercent: 0.7 },
           [RatingLevel.WEAK]: { label: 'Yếu', description: 'Công tác đào tạo chưa đạt yêu cầu (<70%)', scorePercent: 0.0 },
         },
       },
@@ -293,12 +294,26 @@ export function calculateItemScore(item: KPIItem, rating: RatingLevel): number {
 /**
  * Calculate category score (sum of item scores)
  */
-export function calculateCategoryScore(category: KPICategory, ratings: Record<string, RatingLevel>): { points: number; maxPoints: number } {
+export function calculateCategoryScore(category: KPICategory, ratings: any): { points: number; maxPoints: number } {
   let points = 0;
   let maxPoints = 0;
   for (const item of category.items) {
-    const rating = ratings[item.code] || RatingLevel.WEAK; // default if missing
-    points += calculateItemScore(item, rating);
+    // Handle both simple Record<string, RatingLevel> and EvaluationState (record of objects)
+    let ratingLevel = undefined;
+    const ratingEntry = ratings[item.id] || ratings[item.code];
+
+    if (ratingEntry) {
+      if (typeof ratingEntry === 'string') {
+        ratingLevel = ratingEntry as RatingLevel;
+      } else if (typeof ratingEntry === 'object' && ratingEntry.level) {
+        ratingLevel = ratingEntry.level;
+      }
+    }
+    
+    // Only add points if there's a rating
+    if (ratingLevel) {
+       points += calculateItemScore(item, ratingLevel);
+    }
     maxPoints += item.maxPoints;
   }
   // round
@@ -308,11 +323,12 @@ export function calculateCategoryScore(category: KPICategory, ratings: Record<st
 
 /**
  * Calculate total score across all categories
- * ratings: map of item.code -> RatingLevel
+ * ratings: map of item.code -> RatingLevel or EvaluationState
  */
-export function calculateTotalScore(data: KPICategory[], ratings: Record<string, RatingLevel>) {
+export function calculateTotalScore(data: KPICategory[], ratings: any) {
   let totalPoints = 0;
   let totalMax = 0;
+  let penaltyApplied = false;
   const breakdown: { categoryId: string; categoryName: string; points: number; maxPoints: number }[] = [];
 
   for (const cat of data) {
@@ -320,11 +336,43 @@ export function calculateTotalScore(data: KPICategory[], ratings: Record<string,
     breakdown.push({ categoryId: cat.id, categoryName: cat.name, points: catResult.points, maxPoints: catResult.maxPoints });
     totalPoints += catResult.points;
     totalMax += catResult.maxPoints;
+
+    // Check for WEAK ratings to apply penalty
+    for (const item of cat.items) {
+      const ratingEntry = ratings[item.id] || ratings[item.code];
+      let level = undefined;
+      
+      if (ratingEntry) {
+        if (typeof ratingEntry === 'string') {
+          level = ratingEntry as RatingLevel;
+        } else if (typeof ratingEntry === 'object' && ratingEntry.level) {
+          level = ratingEntry.level;
+        }
+      }
+      
+      if (level === RatingLevel.WEAK) {
+        penaltyApplied = true;
+      }
+    }
   }
+
+  // Apply 30 point penalty if any item is WEAK
+  if (penaltyApplied) {
+    totalPoints -= 30;
+  }
+
+  // Ensure score is not negative
+  if (totalPoints < 0) totalPoints = 0;
 
   const percent = totalMax > 0 ? Math.round((totalPoints / totalMax) * 10000) / 100 : 0; // percent with 2 decimals
 
-  return { totalPoints: Math.round(totalPoints * 100) / 100, totalMax, percent, breakdown };
+  return { 
+    totalPoints: Math.round(totalPoints * 100) / 100, 
+    totalMax, 
+    percent, 
+    breakdown,
+    penaltyApplied
+  };
 }
 
 // -----------------------
@@ -334,6 +382,9 @@ export function calculateTotalScore(data: KPICategory[], ratings: Record<string,
 export function generateTextReport(result: ReturnType<typeof calculateTotalScore>) {
   const lines: string[] = [];
   lines.push(`Tổng điểm: ${result.totalPoints}/${result.totalMax} (${result.percent}%)`);
+  if (result.penaltyApplied) {
+    lines.push('(*) Đã bị trừ 30 điểm do có hạng mục đánh giá loại Yếu.');
+  }
   lines.push('Phân tích theo mục:');
   for (const b of result.breakdown) {
     lines.push(`- ${b.categoryName}: ${b.points}/${b.maxPoints}`);

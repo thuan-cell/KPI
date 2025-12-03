@@ -1,5 +1,5 @@
 
-import { EmployeeInfo } from '../App';
+import { EmployeeInfo } from '../types';
 
 const USERS_KEY = 'boiler_kpi_users_db';
 const SESSION_KEY = 'boiler_kpi_current_session';

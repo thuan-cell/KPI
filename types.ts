@@ -1,3 +1,4 @@
+
 export enum RatingLevel {
   GOOD = 'GOOD',
   AVERAGE = 'AVERAGE',
@@ -36,4 +37,12 @@ export interface EvaluationState {
     actualScore: number;
     notes: string;
   };
+}
+
+export interface EmployeeInfo {
+  name: string;
+  id: string;
+  position: string;
+  department: string;
+  reportDate: string;
 }

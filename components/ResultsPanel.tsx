@@ -1,6 +1,7 @@
 
+
 import React from 'react';
-import { Eye, Activity, ShieldCheck, Wrench, Users } from 'lucide-react';
+import { Eye, Activity, ShieldCheck, Wrench, Users, AlertTriangle } from 'lucide-react';
 
 interface CategoryScore {
   id: string;
@@ -20,6 +21,7 @@ interface ResultsPanelProps {
   showPreview: boolean;
   setShowPreview: (show: boolean) => void;
   onPrint: () => void;
+  penaltyApplied?: boolean;
 }
 
 const ResultsPanel: React.FC<ResultsPanelProps> = ({ 
@@ -30,19 +32,20 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
   selectedMonth, 
   showPreview,
   setShowPreview,
-  onPrint
+  onPrint,
+  penaltyApplied
 }) => {
   
   let rankingColor = "text-slate-400";
   let rankingBg = "bg-slate-100 dark:bg-slate-800";
   let gradientStroke = ["#94a3b8", "#64748b"]; 
   
-  if (percent > 0) {
-      if (percent >= 95) {
+  if (percent > 0 || penaltyApplied) {
+      if (percent >= 90) { 
           rankingColor = "text-emerald-400";
           rankingBg = "bg-emerald-500/10 border-emerald-500/20";
           gradientStroke = ["#34d399", "#10b981"];
-      } else if (percent >= 85) {
+      } else if (percent >= 70) {
           rankingColor = "text-blue-400";
           rankingBg = "bg-blue-500/10 border-blue-500/20";
           gradientStroke = ["#60a5fa", "#3b82f6"];
@@ -132,6 +135,13 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
                         <div className={`px-2 py-1 rounded-md text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-lg border backdrop-blur-md whitespace-nowrap ${rankingColor} ${rankingBg}`}>
                             {ranking}
                         </div>
+
+                        {penaltyApplied && (
+                          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-rose-500/10 text-rose-500 px-3 py-1 rounded-full text-[10px] font-bold border border-rose-500/20 flex items-center gap-1.5 animate-pulse whitespace-nowrap shadow-lg shadow-rose-900/20">
+                              <AlertTriangle size={12} />
+                              <span>Trừ 30đ (Lỗi Yếu)</span>
+                          </div>
+                        )}
                     </div>
                 </div>
             </div>
