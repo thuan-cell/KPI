@@ -67,7 +67,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
         <div className="w-3/4 pl-5 flex flex-col justify-center">
            <h1 className="text-2xl font-bold text-blue-900 uppercase tracking-wide print:text-xl">Báo Cáo Hiệu Quả Công Việc (KPI)</h1>
            <div className="flex justify-between items-end mt-2">
-             <div className="text-slate-600 font-bold text-xs uppercase bg-slate-100 px-2 py-0.5 rounded">Dành cho cấp Quản lý / Vận hành Lò hơi</div>
+             <div className="text-slate-600 font-bold text-xs uppercase bg-slate-100 px-2 py-0.5 rounded">Dành cho cấp Quản lý  Lò hơi</div>
              <div className="flex gap-4 text-[10px]">
                 <div><span className="text-slate-500">Kỳ đánh giá:</span> <span className="font-bold text-slate-900">Tháng {month}/{year}</span></div>
                 <div><span className="text-slate-500">Ngày lập:</span> <span className="font-bold text-slate-900">{reportDateObj.toLocaleDateString('vi-VN')}</span></div>
@@ -232,7 +232,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
          <div className="text-center">
             <div className="font-bold text-[9px] uppercase mb-12 print:mb-20 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
-                {employeeInfo.name || '.....................'}
+                {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
