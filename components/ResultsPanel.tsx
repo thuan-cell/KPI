@@ -167,8 +167,8 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
                 })}
             </div>
 
-            {/* 3. Action Button */}
-            <div className="mt-4 pt-4 border-t border-white/5">
+            {/* 3. Action Button - Adjusted top spacing from mt-4 pt-4 to mt-2 pt-2 */}
+            <div className="mt-2 pt-2 border-t border-white/5">
                 <button 
                     onClick={() => setShowPreview(true)}
                     className="w-full h-11 rounded-xl bg-white text-slate-900 font-bold text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
