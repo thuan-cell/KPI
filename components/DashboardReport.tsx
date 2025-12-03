@@ -65,9 +65,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
            )}
         </div>
         <div className="w-3/4 pl-5 flex flex-col justify-center">
-           <h1 className="text-2xl font-bold text-blue-900 uppercase tracking-wide print:text-xl">Báo Cáo Hiệu Quả Công Việc (KPI)</h1>
-           <div className="flex justify-between items-end mt-2">
-             <div className="text-slate-600 font-bold text-xs uppercase bg-slate-100 px-2 py-0.5 rounded">Dành cho cấp Quản lý  Lò hơi</div>
+           <h1 className="text-2xl font-bold text-blue-900 uppercase tracking-wide print:text-xl text-right">BÁO CÁO HIỆU QUẢ CÔNG VIỆC (KPI)</h1>
+           <div className="flex justify-end items-end mt-2">
              <div className="flex gap-4 text-[10px]">
                 <div><span className="text-slate-500">Kỳ đánh giá:</span> <span className="font-bold text-slate-900">Tháng {month}/{year}</span></div>
                 <div><span className="text-slate-500">Ngày lập:</span> <span className="font-bold text-slate-900">{reportDateObj.toLocaleDateString('vi-VN')}</span></div>
@@ -107,8 +106,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
             <div className="text-5xl font-extrabold text-blue-900 leading-none mb-1 print:text-4xl">{Number(totalScore).toFixed(2)}</div>
             <div className="text-slate-400 text-[10px] font-medium mb-3 print:mb-1">/ {maxTotalScore} điểm tối đa</div>
             <div className={`px-4 py-1 rounded-full text-[10px] font-bold border ${
-               percent >= 90 ? 'bg-green-100 text-green-800 border-green-200' :
-               percent >= 70 ? 'bg-blue-100 text-blue-800 border-blue-200' :
+               percent >= 95 ? 'bg-green-100 text-green-800 border-green-200' :
+               percent >= 85 ? 'bg-blue-100 text-blue-800 border-blue-200' :
                'bg-red-100 text-red-800 border-red-200'
             }`}>
                XẾP LOẠI: {ranking.toUpperCase()}

@@ -38,11 +38,11 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
   let gradientStroke = ["#94a3b8", "#64748b"]; 
   
   if (percent > 0) {
-      if (percent >= 90) {
+      if (percent >= 95) {
           rankingColor = "text-emerald-400";
           rankingBg = "bg-emerald-500/10 border-emerald-500/20";
           gradientStroke = ["#34d399", "#10b981"];
-      } else if (percent >= 70) {
+      } else if (percent >= 85) {
           rankingColor = "text-blue-400";
           rankingBg = "bg-blue-500/10 border-blue-500/20";
           gradientStroke = ["#60a5fa", "#3b82f6"];
@@ -170,7 +170,7 @@ const ResultsPanel: React.FC<ResultsPanelProps> = ({
             </div>
 
             {/* 3. Action Button - Compacted */}
-            <div className="mt-1 pt-1 border-t border-white/5">
+            <div className="mt-2 pt-2 border-t border-white/5">
                 <button 
                     onClick={() => setShowPreview(true)}
                     className="w-full h-10 rounded-xl bg-white text-slate-900 font-bold text-xs uppercase tracking-widest shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"

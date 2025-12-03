@@ -165,13 +165,21 @@ function App() {
     });
 
     totalScore = Math.round(totalScore * 100) / 100;
-    const percent = maxTotalScore > 0 ? Math.round((totalScore / maxTotalScore) * 100) : 0;
+    // Removed Math.round to preserve decimal precision (e.g., 94.6 remains 94.6, not 95)
+    const percent = maxTotalScore > 0 ? (totalScore / maxTotalScore) * 100 : 0;
     
     let ranking = "---";
-    if (percent > 0) {
-        if (percent >= 90) ranking = "Xuất Sắc";
-        else if (percent >= 70) ranking = "Đạt Yêu Cầu";
-        else ranking = "Không Đạt";
+    // Check totalScore against point thresholds explicitly
+    if (totalScore > 0) {
+        if (totalScore >= 95) {
+            ranking = "Xuất Sắc";
+        }
+        else if (totalScore >= 85) {
+            ranking = "Đạt Yêu Cầu";
+        }
+        else {
+            ranking = "Không Đạt";
+        }
     }
 
     return { categoryScores, totalScore, maxTotalScore, percent, ranking };
@@ -346,21 +354,21 @@ function App() {
                             <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-900/20 border border-emerald-500/20 relative group hover:border-emerald-500/40 transition-colors">
                                 <div className="flex justify-between items-start mb-3">
                                     <span className="font-black text-emerald-400 text-lg">XUẤT SẮC</span>
-                                    <span className="px-2 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded">90 - 100%</span>
+                                    <span className="px-2 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded">95 - 100 điểm</span>
                                 </div>
                                 <p className="text-xs text-slate-300 leading-relaxed">Hoàn thành xuất sắc nhiệm vụ, không xảy ra sự cố, tuân thủ tuyệt đối quy trình.</p>
                             </div>
                             <div className="p-5 rounded-2xl bg-gradient-to-br from-blue-500/10 to-blue-900/20 border border-blue-500/20 relative group hover:border-blue-500/40 transition-colors">
                                 <div className="flex justify-between items-start mb-3">
                                     <span className="font-black text-blue-400 text-lg">ĐẠT YÊU CẦU</span>
-                                    <span className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded">70 - 90%</span>
+                                    <span className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded">85 - 95 điểm</span>
                                 </div>
                                 <p className="text-xs text-slate-300 leading-relaxed">Hoàn thành nhiệm vụ được giao, còn sai sót nhỏ nhưng đã khắc phục kịp thời.</p>
                             </div>
                             <div className="p-5 rounded-2xl bg-gradient-to-br from-rose-500/10 to-rose-900/20 border border-rose-500/20 relative group hover:border-rose-500/40 transition-colors">
                                 <div className="flex justify-between items-start mb-3">
                                     <span className="font-black text-rose-400 text-lg">KHÔNG ĐẠT</span>
-                                    <span className="px-2 py-1 bg-rose-500 text-white text-[10px] font-bold rounded">&lt; 70%</span>
+                                    <span className="px-2 py-1 bg-rose-500 text-white text-[10px] font-bold rounded">&lt; 85 điểm</span>
                                 </div>
                                 <p className="text-xs text-slate-300 leading-relaxed">Vi phạm quy trình vận hành, để xảy ra sự cố nghiêm trọng hoặc thiếu trách nhiệm.</p>
                             </div>
