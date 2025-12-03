@@ -48,28 +48,38 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   return (
     // Explicitly set 210mm width as max to match print container, but w-full to fill it
     <div className="bg-white text-slate-900 font-sans w-full p-[5mm] relative box-border">
+      
       {/* --- HEADER --- */}
-      <div className="flex border-b-2 border-slate-900 pb-3 mb-3 print:pb-2 print:mb-2 items-center">
-        <div className="w-1/4 flex flex-col items-center justify-center border-r border-slate-200 pr-4">
-           {/* LOGO AREA - Only show if logoUrl exists */}
+      <div className="relative border-b-[3px] border-blue-900 pb-5 mb-6 print:pb-4 print:mb-5">
+        
+        {/* Logo - Positioned Absolutely Left to allow true centering of title */}
+        <div className="absolute left-0 top-0 h-full w-[160px] flex items-center justify-start">
            {logoUrl ? (
              <img 
                 src={logoUrl} 
                 alt="Logo" 
-                className="w-full max-h-16 object-contain"
+                className="max-h-[70px] max-w-full object-contain object-left"
              />
-           ) : (
-             <div className="h-16 w-full flex items-center justify-center">
-                {/* Empty space if no logo is uploaded */}
-             </div>
-           )}
+           ) : null}
         </div>
-        <div className="w-3/4 pl-5 flex flex-col justify-center">
-           <h1 className="text-2xl font-bold text-blue-900 uppercase tracking-wide print:text-xl text-right">BÁO CÁO HIỆU QUẢ CÔNG VIỆC (KPI)</h1>
-           <div className="flex justify-end items-end mt-2">
-             <div className="flex gap-4 text-[10px]">
-                <div><span className="text-slate-500">Kỳ đánh giá:</span> <span className="font-bold text-slate-900">Tháng {month}/{year}</span></div>
-                <div><span className="text-slate-500">Ngày lập:</span> <span className="font-bold text-slate-900">{reportDateObj.toLocaleDateString('vi-VN')}</span></div>
+
+        {/* Centered Content - Padding ensures no overlap with logo while keeping center alignment relative to page */}
+        <div className="text-center w-full px-[140px]">
+           <h1 className="text-[26px] font-black text-blue-900 uppercase tracking-wide leading-none mb-3 print:text-2xl print:mb-2">
+             BÁO CÁO HIỆU QUẢ CÔNG VIỆC
+           </h1>
+           
+           <div className="flex justify-center items-center gap-6 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+             <div className="flex items-center gap-2 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 print:border-none print:bg-transparent print:p-0">
+                <span className="text-slate-400">Kỳ đánh giá:</span> 
+                <span className="text-blue-900 font-black">Tháng {month}/{year}</span>
+             </div>
+             
+             <div className="w-px h-3 bg-slate-300 hidden print:block"></div>
+
+             <div className="flex items-center gap-2 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 print:border-none print:bg-transparent print:p-0">
+                <span className="text-slate-400">Ngày lập:</span> 
+                <span className="text-blue-900 font-black">{reportDateObj.toLocaleDateString('vi-VN')}</span>
              </div>
            </div>
         </div>
