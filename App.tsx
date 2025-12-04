@@ -1,4 +1,5 @@
 
+
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import InputSection from './components/InputSection';
 import ResultsPanel from './components/ResultsPanel';
@@ -6,36 +7,9 @@ import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import { EvaluationState, RatingLevel, EmployeeInfo } from './types';
 import { KPI_DATA } from './constants';
-import { User, CreditCard, Upload, Printer, X, Calendar, CheckCircle2, Mail } from 'lucide-react';
+import { User, CreditCard, Upload, Printer, X, Calendar } from 'lucide-react';
 import DashboardReport from './components/DashboardReport';
 import { authService, UserAccount } from './services/authService';
-
-// --- Toast Component for Notifications ---
-interface ToastProps {
-    message: string;
-    subMessage?: string;
-    show: boolean;
-    onClose: () => void;
-}
-const Toast: React.FC<ToastProps> = ({ message, subMessage, show, onClose }) => {
-    if (!show) return null;
-    return (
-        <div className="fixed top-24 right-4 md:right-8 z-[100] animate-in slide-in-from-right-10 fade-in duration-500">
-            <div className="bg-white dark:bg-slate-800 border-l-4 border-emerald-500 rounded-lg shadow-2xl p-4 flex items-start gap-3 max-w-sm border border-slate-100 dark:border-slate-700">
-                <div className="bg-emerald-100 dark:bg-emerald-900/30 p-2 rounded-full shrink-0">
-                    <Mail size={20} className="text-emerald-600 dark:text-emerald-400" />
-                </div>
-                <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">{message}</h4>
-                    {subMessage && <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{subMessage}</p>}
-                </div>
-                <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
-                    <X size={16} />
-                </button>
-            </div>
-        </div>
-    );
-};
 
 function App() {
   const [ratings, setRatings] = useState<EvaluationState>({});
@@ -51,13 +25,9 @@ function App() {
   const [companyLogo, setCompanyLogo] = useState<string | null>(null);
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState<{name: string, role: string, avatar?: string, email?: string} | undefined>(undefined);
+  const [currentUser, setCurrentUser] = useState<{name: string, role: string, avatar?: string} | undefined>(undefined);
 
   const [showPreview, setShowPreview] = useState(false);
-  
-  // Notification State
-  const [showNotification, setShowNotification] = useState(false);
-  const [notificationMsg, setNotificationMsg] = useState({ title: '', sub: '' });
   
   const [employeeInfo, setEmployeeInfo] = useState<EmployeeInfo>({
     name: '',
@@ -73,37 +43,6 @@ function App() {
       handleLoginSuccess(sessionUser);
     }
   }, []);
-
-  // --- AUTOMATIC EMAIL REMINDER LOGIC ---
-  useEffect(() => {
-    if (isLoggedIn && currentUser?.email) {
-        const today = new Date();
-        const currentDay = today.getDate();
-        
-        // Check if today is the 28th
-        if (currentDay === 28) {
-             const reminderKey = `kpi_reminder_sent_${today.getFullYear()}_${today.getMonth()}_${currentUser.email}`;
-             const alreadySent = localStorage.getItem(reminderKey);
-
-             if (!alreadySent) {
-                 // Simulate sending email
-                 setTimeout(() => {
-                     setNotificationMsg({
-                         title: 'Thông báo nhắc hẹn',
-                         sub: `Hệ thống đã tự động gửi email nhắc nhở đánh giá KPI tháng ${today.getMonth() + 1} tới ${currentUser.email}.`
-                     });
-                     setShowNotification(true);
-                     
-                     // Mark as sent for this month/user so we don't spam
-                     localStorage.setItem(reminderKey, 'true');
-                     
-                     // Auto hide after 8 seconds
-                     setTimeout(() => setShowNotification(false), 8000);
-                 }, 1500); // Small delay after login to show the toast
-             }
-        }
-    }
-  }, [isLoggedIn, currentUser]);
 
   useEffect(() => {
     if (darkMode) {
@@ -124,11 +63,8 @@ function App() {
     setCurrentUser({ 
       name: user.fullName, 
       role: user.role, 
-      avatar: user.avatar,
-      email: user.email
+      avatar: user.avatar 
     });
-    // Removed auto-fill logic as requested.
-    // Fields should be suggestions (placeholders) not pre-filled values.
   };
 
   const handleLogout = () => {
@@ -143,7 +79,6 @@ function App() {
         department: ''
     }));
     setRatings({});
-    setShowNotification(false);
   };
 
   const handleRate = useCallback((id: string, level: RatingLevel, score: number) => {
@@ -263,14 +198,6 @@ function App() {
   return (
     <div className="min-h-screen xl:h-screen flex flex-col bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-slate-100 font-sans selection:bg-indigo-500/30 print:bg-white transition-colors duration-500 xl:overflow-hidden relative overflow-x-hidden">
       
-      {/* Toast Notification */}
-      <Toast 
-        show={showNotification} 
-        message={notificationMsg.title} 
-        subMessage={notificationMsg.sub} 
-        onClose={() => setShowNotification(false)}
-      />
-
       {isLoggedIn && (
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none no-print">
            <div className="absolute top-[-20%] left-[20%] w-[1000px] h-[600px] bg-indigo-500/10 dark:bg-indigo-600/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen opacity-60"></div>
@@ -345,7 +272,7 @@ function App() {
                             <User className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors" size={18} />
                             <input 
                                 type="text"
-                                placeholder="VD: Phùng Văn Lân"
+                                placeholder="Nhập họ tên đầy đủ..."
                                 className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white placeholder:text-slate-400 shadow-inner"
                                 value={employeeInfo.name}
                                 onChange={e => handleInfoChange('name', e.target.value)}
@@ -358,7 +285,7 @@ function App() {
                             <CreditCard className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors" size={18} />
                             <input 
                                 type="text"
-                                placeholder="VD: NV-3194"
+                                placeholder="VD: NV-001"
                                 className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white placeholder:text-slate-400 shadow-inner"
                                 value={employeeInfo.id}
                                 onChange={e => handleInfoChange('id', e.target.value)}
@@ -384,7 +311,7 @@ function App() {
                              <CreditCard className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors" size={18} />
                              <input 
                                 type="text"
-                                placeholder="VD: Vận Hành"
+                                placeholder="VD: Vận Hành Lò Hơi"
                                 className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white placeholder:text-slate-400 shadow-inner"
                                 value={employeeInfo.department}
                                 onChange={e => handleInfoChange('department', e.target.value)}

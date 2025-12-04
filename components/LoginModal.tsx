@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, Mail, Lock, Loader2, User, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { authService, UserAccount } from '../services/authService';
@@ -18,7 +17,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
   
   const [formData, setFormData] = useState({
     fullName: '',
-    email: '', 
+    username: '', 
     password: '',
     confirmPassword: '',
   });
@@ -30,7 +29,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
       setIsLoading(false);
       setFormData({
         fullName: '',
-        email: '',
+        username: '',
         password: '',
         confirmPassword: '',
       });
@@ -39,25 +38,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
 
   if (!isOpen) return null;
 
-  const validateEmail = (email: string) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (!formData.email || !formData.password) {
+    if (!formData.username || !formData.password) {
         setError("Vui lòng nhập đầy đủ thông tin.");
-        return;
-    }
-
-    if (!validateEmail(formData.email)) {
-        setError("Vui lòng nhập địa chỉ email hợp lệ.");
         return;
     }
 
@@ -81,7 +67,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
     setTimeout(() => {
         if (isRegister) {
             const result = authService.register({
-                email: formData.email,
+                username: formData.username,
                 password: formData.password,
                 fullName: formData.fullName,
                 role: 'Nhân viên', // Default role
@@ -95,7 +81,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
                 setError(result.message);
             }
         } else {
-             const result = authService.login(formData.email, formData.password);
+             const result = authService.login(formData.username, formData.password);
              if (result.success && result.user) {
                 onLoginSuccess(result.user);
                 onClose();
@@ -165,14 +151,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
 
                 <div className="space-y-4">
                      <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Email</label>
+                        <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Tên đăng nhập</label>
                         <div className="relative group">
                             <Mail className="absolute left-3 top-2.5 text-slate-400" size={16} />
                             <input 
-                                type="email"
+                                type="text"
                                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
-                                value={formData.email}
-                                onChange={e => setFormData({...formData, email: e.target.value})}
+                                value={formData.username}
+                                onChange={e => setFormData({...formData, username: e.target.value})}
                             />
                         </div>
                     </div>

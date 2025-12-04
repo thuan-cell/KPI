@@ -6,8 +6,8 @@ const SESSION_KEY = 'boiler_kpi_current_session';
 
 export interface UserAccount {
   id: string;
-  email: string; // Changed from username to email
-  password: string; 
+  username: string; // email
+  password: string; // In real app, this should be hashed. Here we store plain for demo.
   fullName: string;
   role: string;
   department: string;
@@ -35,7 +35,7 @@ export const authService = {
     const users = authService.getUsers();
     
     // Check if email exists
-    if (users.some(u => u.email.toLowerCase() === data.email.toLowerCase())) {
+    if (users.some(u => u.username.toLowerCase() === data.username.toLowerCase())) {
       return { success: false, message: 'Email này đã được đăng ký.' };
     }
 
@@ -54,12 +54,12 @@ export const authService = {
   },
 
   // Login
-  login: (email: string, password: string): { success: boolean; message: string; user?: UserAccount } => {
+  login: (username: string, password: string): { success: boolean; message: string; user?: UserAccount } => {
     const users = authService.getUsers();
-    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+    const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
 
     if (!user) {
-      return { success: false, message: 'Sai email hoặc mật khẩu.' };
+      return { success: false, message: 'Sai thông tin tài khoản hoặc mật khẩu.' };
     }
 
     authService.setSession(user);

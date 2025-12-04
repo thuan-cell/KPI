@@ -15,30 +15,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLoginSuccess }) => {
   
   const [formData, setFormData] = useState({
     fullName: '',
-    email: '', 
+    username: '', 
     password: '',
     confirmPassword: '',
   });
-
-  const validateEmail = (email: string) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (!formData.email || !formData.password) {
+    if (!formData.username || !formData.password) {
         setError("Vui lòng nhập đầy đủ thông tin.");
-        return;
-    }
-
-    if (!validateEmail(formData.email)) {
-        setError("Vui lòng nhập địa chỉ email hợp lệ.");
         return;
     }
 
@@ -62,7 +49,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLoginSuccess }) => {
     setTimeout(() => {
         if (isRegister) {
             const result = authService.register({
-                email: formData.email,
+                username: formData.username,
                 password: formData.password,
                 fullName: formData.fullName,
                 role: 'Nhân viên',
@@ -75,7 +62,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLoginSuccess }) => {
                 setError(result.message);
             }
         } else {
-             const result = authService.login(formData.email, formData.password);
+             const result = authService.login(formData.username, formData.password);
              if (result.success && result.user) {
                 onLoginSuccess(result.user);
              } else {
@@ -91,7 +78,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLoginSuccess }) => {
       setError(null);
       setFormData({
         fullName: '',
-        email: '',
+        username: '',
         password: '',
         confirmPassword: '',
       });
@@ -116,7 +103,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLoginSuccess }) => {
                     {isRegister ? 'Tạo tài khoản' : 'Đăng nhập'}
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-                    {isRegister ? 'Nhập email để đăng ký hệ thống' : 'Vui lòng nhập email xác thực'}
+                    {isRegister ? 'Nhập thông tin để đăng ký hệ thống' : 'Vui lòng nhập thông tin xác thực'}
                 </p>
             </div>
 
@@ -151,11 +138,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onLoginSuccess }) => {
                             <Mail size={18} />
                         </div>
                         <input 
-                            type="email"
-                            placeholder="Email (VD: example@biogen.vn)"
+                            type="text"
+                            placeholder="Tên đăng nhập"
                             className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl py-3.5 pl-11 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all dark:text-white placeholder:text-slate-400"
-                            value={formData.email}
-                            onChange={e => setFormData({...formData, email: e.target.value})}
+                            value={formData.username}
+                            onChange={e => setFormData({...formData, username: e.target.value})}
                         />
                     </div>
                 </div>
