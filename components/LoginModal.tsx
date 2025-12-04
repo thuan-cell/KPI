@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { X, Mail, Lock, Loader2, User, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { X, Mail, Lock, Loader2, User, ArrowRight, Eye, EyeOff, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { authService, UserAccount } from '../services/authService';
 
 interface LoginModalProps {
@@ -11,13 +12,16 @@ interface LoginModalProps {
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess, defaultMode = 'login' }) => {
   const [isRegister, setIsRegister] = useState(defaultMode === 'register');
+  const [verificationStep, setVerificationStep] = useState(false);
+  const [otpCode, setOtpCode] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   
   const [formData, setFormData] = useState({
     fullName: '',
-    username: '', 
+    email: '', 
     password: '',
     confirmPassword: '',
   });
@@ -25,11 +29,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
   useEffect(() => {
     if (isOpen) {
       setIsRegister(defaultMode === 'register');
+      setVerificationStep(false);
+      setOtpCode('');
       setError(null);
       setIsLoading(false);
       setFormData({
         fullName: '',
-        username: '',
+        email: '',
         password: '',
         confirmPassword: '',
       });
@@ -38,12 +44,46 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
 
   if (!isOpen) return null;
 
+  const validateEmail = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (!formData.username || !formData.password) {
+    // --- STEP 2: VERIFY OTP ---
+    if (verificationStep) {
+        if (!otpCode || otpCode.length !== 6) {
+            setError("Vui lòng nhập mã xác thực 6 số.");
+            return;
+        }
+        setIsLoading(true);
+        setTimeout(() => {
+            const result = authService.verifyRegistration(formData.email, otpCode);
+            if (result.success && result.user) {
+                onLoginSuccess(result.user);
+                onClose();
+            } else {
+                setError(result.message);
+            }
+            setIsLoading(false);
+        }, 1000);
+        return;
+    }
+
+    // --- STEP 1: VALIDATION ---
+    if (!formData.email || !formData.password) {
         setError("Vui lòng nhập đầy đủ thông tin.");
+        return;
+    }
+
+    if (!validateEmail(formData.email)) {
+        setError("Vui lòng nhập địa chỉ email hợp lệ.");
         return;
     }
 
@@ -66,22 +106,26 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
     
     setTimeout(() => {
         if (isRegister) {
-            const result = authService.register({
-                username: formData.username,
+            // Step 1: Initiate Registration
+            const result = authService.initiateRegistration({
+                email: formData.email,
                 password: formData.password,
                 fullName: formData.fullName,
                 role: 'Nhân viên', // Default role
                 department: 'Vận Hành',
                 avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.fullName)}&background=random`
             });
-            if (result.success && result.user) {
-                onLoginSuccess(result.user);
-                onClose();
+            
+            if (result.success) {
+                alert(result.message); // Show demo OTP
+                setVerificationStep(true);
+                setError(null);
             } else {
                 setError(result.message);
             }
         } else {
-             const result = authService.login(formData.username, formData.password);
+             // Normal Login
+             const result = authService.login(formData.email, formData.password);
              if (result.success && result.user) {
                 onLoginSuccess(result.user);
                 onClose();
@@ -95,6 +139,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
 
   const toggleMode = () => {
       setIsRegister(!isRegister);
+      setVerificationStep(false);
       setError(null);
   };
 
@@ -116,10 +161,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
 
         <div className="pt-10 pb-6 px-8">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                {isRegister ? 'Tạo tài khoản' : 'Đăng nhập'}
+                {verificationStep ? 'Xác thực' : (isRegister ? 'Tạo tài khoản' : 'Đăng nhập')}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-                {isRegister ? 'Nhập thông tin cá nhân của bạn để bắt đầu.' : 'Chào mừng trở lại! Vui lòng nhập thông tin.'}
+                {verificationStep 
+                  ? 'Vui lòng kiểm tra email để lấy mã.' 
+                  : (isRegister ? 'Nhập thông tin cá nhân của bạn để bắt đầu.' : 'Chào mừng trở lại! Vui lòng nhập thông tin.')
+                }
             </p>
         </div>
 
@@ -132,100 +180,143 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
                     </div>
                 )}
 
-                {isRegister && (
-                    <div className="space-y-4 animate-in slide-in-from-left-2 fade-in duration-300">
-                        <div className="space-y-1.5">
-                            <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Họ và tên</label>
+                {/* --- VERIFICATION VIEW --- */}
+                {verificationStep ? (
+                     <div className="space-y-4 animate-in slide-in-from-right-4 fade-in duration-300">
+                         <div className="space-y-1.5">
+                            <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide text-center w-full block">Mã xác thực 6 số</label>
                             <div className="relative group">
-                                <User className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                <ShieldCheck className="absolute left-3 top-2.5 text-emerald-500" size={16} />
                                 <input 
                                     type="text"
-                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
-                                    value={formData.fullName}
-                                    onChange={e => setFormData({...formData, fullName: e.target.value})}
+                                    maxLength={6}
+                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-center text-lg font-bold tracking-[0.2em] focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all dark:text-white"
+                                    value={otpCode}
+                                    onChange={e => setOtpCode(e.target.value.replace(/[^0-9]/g, ''))}
+                                    placeholder="000000"
+                                    autoFocus
                                 />
                             </div>
                         </div>
-                    </div>
-                )}
-
-                <div className="space-y-4">
-                     <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Tên đăng nhập</label>
-                        <div className="relative group">
-                            <Mail className="absolute left-3 top-2.5 text-slate-400" size={16} />
-                            <input 
-                                type="text"
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
-                                value={formData.username}
-                                onChange={e => setFormData({...formData, username: e.target.value})}
-                            />
-                        </div>
-                    </div>
-                    
-                    <div className="space-y-1.5">
-                        <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Mật khẩu</label>
-                        <div className="relative group">
-                            <Lock className="absolute left-3 top-2.5 text-slate-400" size={16} />
-                            <input 
-                                type={showPassword ? "text" : "password"}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-10 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
-                                value={formData.password}
-                                onChange={e => setFormData({...formData, password: e.target.value})}
-                            />
-                            <button 
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-                            >
-                                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                            </button>
-                        </div>
-                    </div>
-
-                    {isRegister && (
-                         <div className="space-y-1.5 animate-in slide-in-from-left-2 fade-in duration-300">
-                            <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Xác nhận mật khẩu</label>
-                            <div className="relative group">
-                                <Lock className="absolute left-3 top-2.5 text-slate-400" size={16} />
-                                <input 
-                                    type="password"
-                                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
-                                    value={formData.confirmPassword}
-                                    onChange={e => setFormData({...formData, confirmPassword: e.target.value})}
-                                />
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                <div className="pt-4">
-                    <button 
-                        type="submit" 
-                        disabled={isLoading}
-                        className="w-full bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-500/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-                    >
-                        {isLoading ? <Loader2 size={18} className="animate-spin" /> : (
-                            <>
-                                <span>{isRegister ? 'Đăng Ký' : 'Đăng Nhập'}</span>
-                                <ArrowRight size={16} />
-                            </>
-                        )}
-                    </button>
-                </div>
-
-                <div className="text-center pt-2">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                        {isRegister ? 'Đã có tài khoản?' : 'Chưa có tài khoản?'}
+                        <button 
+                            type="submit" 
+                            disabled={isLoading}
+                            className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-500/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                        >
+                            {isLoading ? <Loader2 size={18} className="animate-spin" /> : (
+                                <>
+                                    <span>Xác Nhận</span>
+                                    <ArrowRight size={16} />
+                                </>
+                            )}
+                        </button>
                         <button 
                             type="button"
-                            onClick={toggleMode}
-                            className="ml-1.5 font-bold text-indigo-600 dark:text-indigo-400 hover:underline focus:outline-none"
+                            onClick={() => setVerificationStep(false)}
+                            className="w-full py-2 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-bold flex items-center justify-center gap-1"
                         >
-                            {isRegister ? 'Đăng nhập ngay' : 'Đăng ký mới'}
+                            <ArrowLeft size={12} /> Quay lại
                         </button>
-                    </p>
-                </div>
+                     </div>
+                ) : (
+                    /* --- NORMAL FORM --- */
+                    <>
+                        {isRegister && (
+                            <div className="space-y-4 animate-in slide-in-from-left-2 fade-in duration-300">
+                                <div className="space-y-1.5">
+                                    <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Họ và tên</label>
+                                    <div className="relative group">
+                                        <User className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                        <input 
+                                            type="text"
+                                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
+                                            value={formData.fullName}
+                                            onChange={e => setFormData({...formData, fullName: e.target.value})}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="space-y-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Email</label>
+                                <div className="relative group">
+                                    <Mail className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                    <input 
+                                        type="email"
+                                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
+                                        value={formData.email}
+                                        onChange={e => setFormData({...formData, email: e.target.value})}
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="space-y-1.5">
+                                <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Mật khẩu</label>
+                                <div className="relative group">
+                                    <Lock className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                    <input 
+                                        type={showPassword ? "text" : "password"}
+                                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-10 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
+                                        value={formData.password}
+                                        onChange={e => setFormData({...formData, password: e.target.value})}
+                                    />
+                                    <button 
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                                    >
+                                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {isRegister && (
+                                <div className="space-y-1.5 animate-in slide-in-from-left-2 fade-in duration-300">
+                                    <label className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Xác nhận mật khẩu</label>
+                                    <div className="relative group">
+                                        <Lock className="absolute left-3 top-2.5 text-slate-400" size={16} />
+                                        <input 
+                                            type="password"
+                                            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2.5 pl-9 pr-4 text-sm font-medium focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all dark:text-white"
+                                            value={formData.confirmPassword}
+                                            onChange={e => setFormData({...formData, confirmPassword: e.target.value})}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="pt-4">
+                            <button 
+                                type="submit" 
+                                disabled={isLoading}
+                                className="w-full bg-slate-900 dark:bg-indigo-600 hover:bg-slate-800 dark:hover:bg-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-500/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                            >
+                                {isLoading ? <Loader2 size={18} className="animate-spin" /> : (
+                                    <>
+                                        <span>{isRegister ? 'Tiếp tục' : 'Đăng Nhập'}</span>
+                                        <ArrowRight size={16} />
+                                    </>
+                                )}
+                            </button>
+                        </div>
+
+                        <div className="text-center pt-2">
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                                {isRegister ? 'Đã có tài khoản?' : 'Chưa có tài khoản?'}
+                                <button 
+                                    type="button"
+                                    onClick={toggleMode}
+                                    className="ml-1.5 font-bold text-indigo-600 dark:text-indigo-400 hover:underline focus:outline-none"
+                                >
+                                    {isRegister ? 'Đăng nhập ngay' : 'Đăng ký mới'}
+                                </button>
+                            </p>
+                        </div>
+                    </>
+                )}
 
             </form>
         </div>

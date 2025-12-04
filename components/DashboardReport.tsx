@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { KPI_DATA } from '../constants';
 import { EvaluationState, EmployeeInfo } from '../types';
@@ -14,7 +13,7 @@ import {
   Cell,
   Legend
 } from 'recharts';
-import { CheckCircle2, AlertTriangle } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, FileText, Calendar, Layers } from 'lucide-react';
 
 interface DashboardReportProps {
   ratings: EvaluationState;
@@ -44,48 +43,80 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   const [year, month] = selectedMonth.split('-');
   const reportDateObj = employeeInfo.reportDate ? new Date(employeeInfo.reportDate) : new Date();
 
-  // Updated colors to match App theme: Indigo (Vận hành), Emerald (An toàn), Amber (Thiết bị), Rose (Nhân sự)
   const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e'];
 
   return (
-    // Explicitly set 210mm width as max to match print container, but w-full to fill it
-    <div className="bg-white text-slate-900 font-sans w-full p-[5mm] relative box-border">
-      
-      {/* --- HEADER --- */}
-      <div className="relative border-b-[3px] border-blue-900 pb-5 mb-6 print:pb-4 print:mb-5">
+    <div className="bg-white text-slate-900 font-sans w-full p-[8mm] relative box-border flex flex-col h-full min-h-[297mm]">
+
+      {/* ---------------- HEADER ---------------- */}
+      <div className="border-b-2 border-slate-900 pb-6 mb-6 print:mb-6">
         
-        {/* Logo - Positioned Absolutely Left to allow true centering of title */}
-        <div className="absolute left-0 top-0 h-full w-[160px] flex items-center justify-start">
-           {logoUrl ? (
-             <img 
-                src={logoUrl} 
-                alt="Logo" 
-                className="max-h-[70px] max-w-full object-contain object-left"
-             />
-           ) : null}
+        {/* TOP ROW: LOGO & META INFO */}
+        <div className="flex justify-between items-center mb-8">
+            
+            {/* Logo Section */}
+            <div className="flex items-center gap-4">
+                 <div className="h-14 w-auto max-w-[150px] flex items-center">
+                    <img
+                        src={logoUrl || "/triviet-logo.png"}
+                        alt="Logo"
+                        className="h-full w-auto object-contain object-left"
+                    />
+                 </div>
+                 <div className="h-10 w-px bg-slate-300 mx-1"></div>
+                 <div className="flex flex-col justify-center items-center">
+                    <p className="text-[9px] font-bold uppercase tracking-wide leading-tight text-slate-800">
+                        Công Ty TNHH Năng Lượng Trí Việt Biogen
+                    </p>
+                    <p className="text-[10px] font-medium leading-tight text-slate-500 mt-1">
+                        Hệ thống đánh giá KPI
+                    </p>
+                 </div>
+            </div>
+
+             {/* Meta Info Box */}
+            <div className="flex bg-slate-50 border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+              <div className="px-4 py-2 border-r border-slate-200 flex flex-col items-center justify-center min-w-[90px]">
+                <span className="text-[9px] font-bold uppercase text-slate-400 flex items-center gap-1.5 mb-1">
+                  <Calendar size={10} /> Kỳ đánh giá
+                </span>
+                <span className="text-blue-700 font-black text-xs whitespace-nowrap">
+                  THÁNG {month}/{year}
+                </span>
+              </div>
+              <div className="px-4 py-2 border-r border-slate-200 flex flex-col items-center justify-center min-w-[90px]">
+                <span className="text-[9px] font-bold uppercase text-slate-400 flex items-center gap-1.5 mb-1">
+                  <FileText size={10} /> Ngày lập
+                </span>
+                <span className="text-slate-800 font-bold text-xs whitespace-nowrap">
+                  {reportDateObj.toLocaleDateString("vi-VN")}
+                </span>
+              </div>
+              <div className="px-4 py-2 flex flex-col items-center justify-center min-w-[90px]">
+                <span className="text-[9px] font-bold uppercase text-slate-400 flex items-center gap-1.5 mb-1">
+                  <Layers size={10} /> Mã biểu mẫu
+                </span>
+                <span className="font-bold text-xs text-slate-800 whitespace-nowrap">BM-KPI-01</span>
+              </div>
+            </div>
         </div>
 
-        {/* Centered Content - Padding ensures no overlap with logo while keeping center alignment relative to page */}
-        <div className="text-center w-full px-[140px]">
-           <h1 className="text-[26px] font-black text-blue-900 uppercase tracking-wide leading-none mb-3 print:text-2xl print:mb-2">
-             BÁO CÁO HIỆU QUẢ CÔNG VIỆC
-           </h1>
-           
-           <div className="flex justify-center items-center gap-6 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
-             <div className="flex items-center gap-2 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 print:border-none print:bg-transparent print:p-0">
-                <span className="text-slate-400">Kỳ đánh giá:</span> 
-                <span className="text-blue-900 font-black">Tháng {month}/{year}</span>
+        {/* CENTER TITLE */}
+        <div className="text-center w-full">
+             <h1 className="text-3xl font-black text-blue-900 uppercase leading-tight tracking-tight mb-2">
+                ĐÁNH GIÁ HIỆU QUẢ CÔNG VIỆC
+             </h1>
+             <div className="flex items-center justify-center gap-4 opacity-80">
+                <div className="h-px w-16 bg-gradient-to-r from-transparent to-slate-400"></div>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
+                    Performance Appraisal Report
+                </p>
+                <div className="h-px w-16 bg-gradient-to-l from-transparent to-slate-400"></div>
              </div>
-             
-             <div className="w-px h-3 bg-slate-300 hidden print:block"></div>
-
-             <div className="flex items-center gap-2 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 print:border-none print:bg-transparent print:p-0">
-                <span className="text-slate-400">Ngày lập:</span> 
-                <span className="text-blue-900 font-black">{reportDateObj.toLocaleDateString('vi-VN')}</span>
-             </div>
-           </div>
         </div>
       </div>
+
+
 
       {/* --- EMPLOYEE INFO (Single Row Compact) --- */}
       <div className="bg-slate-50 border border-slate-200 rounded p-3 mb-3 print:p-2 print:mb-2 grid grid-cols-4 gap-4 text-[10px]">
@@ -244,20 +275,20 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- SIGNATURES (Bottom Positioned) --- */}
-      {/* Adjusted spacing for print to 12 as requested */}
-      <div className="grid grid-cols-3 gap-8 mt-auto pt-2 print:mt-12">
+      {/* Adjusted spacing for print to 8 as requested */}
+      <div className="grid grid-cols-3 gap-8 mt-auto pt-2 print:mt-8">
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-12 print:mb-20 text-slate-800">Người được đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-12 print:mb-16 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-12 print:mb-20 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-12 print:mb-16 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-12 print:mb-20 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-12 print:mb-16 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
