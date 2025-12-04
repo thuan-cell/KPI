@@ -8,10 +8,10 @@ import {
   XAxis, 
   YAxis, 
   CartesianGrid,
-  PieChart,
-  Pie,
-  Cell,
-  Legend
+  PieChart, 
+  Pie, 
+  Cell, 
+  Legend 
 } from 'recharts';
 import { CheckCircle2, AlertTriangle, FileText, Calendar, Layers } from 'lucide-react';
 
@@ -275,20 +275,25 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- SIGNATURES (Bottom Positioned) --- */}
-      {/* Adjusted spacing for print to 4 as requested, and mb for signature title */}
-      <div className="grid grid-cols-3 gap-8 mt-auto pt-2 print:mt-1">
+      {/* 
+          ADJUSTMENTS:
+          Web View: mt-4 (moved up from mt-auto), mb-8 (moved up from mb-10)
+          Print View: print:mt-10 (moved down from print:mt-1), print:mb-20 (moved down from print:mb-8)
+          Layout: 100% identical grid structure
+      */}
+      <div className="grid grid-cols-3 gap-8 mt-4 print:mt-10">
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-10 print:mb-8 text-slate-800">Người được đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-8 print:mb-20 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-10 print:mb-8 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-8 print:mb-20 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-10 print:mb-8 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-8 print:mb-20 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
