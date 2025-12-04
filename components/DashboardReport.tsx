@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { KPI_DATA } from '../constants';
 import { EvaluationState, EmployeeInfo } from '../types';
@@ -46,74 +45,74 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e'];
 
   return (
-    // ADJUSTED PADDING FOR TIGHTER MARGINS (7mm)
-    // px-[7mm] creates a balanced 0.5cm margin on left and right.
-    <div className="bg-white text-slate-900 font-sans w-full px-[7mm] py-[5mm] relative box-border flex flex-col h-full min-h-[297mm]">
+    // ADJUSTED PADDING FOR EVEN MARGINS
+    // px-[10mm] creates a balanced 1cm margin on left and right.
+    <div className="bg-white text-slate-900 font-sans w-full px-[10mm] py-[10mm] relative box-border flex flex-col h-full min-h-[297mm]">
 
       {/* ---------------- HEADER ---------------- */}
-      <div className="border-b-2 border-slate-900 pb-2 mb-2">
+      <div className="border-b-2 border-slate-900 pb-4 mb-4">
         
         {/* TOP ROW: LOGO & META INFO */}
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center mb-4">
             
             {/* Logo Section */}
             <div className="flex items-center gap-4">
-                 <div className="h-12 w-auto max-w-[150px] flex items-center">
+                 <div className="h-14 w-auto max-w-[150px] flex items-center">
                     <img
                         src={logoUrl || "/triviet-logo.png"}
                         alt="Logo"
                         className="h-full w-auto object-contain object-left"
                     />
                  </div>
-                 <div className="h-8 w-px bg-slate-300 mx-1"></div>
+                 <div className="h-10 w-px bg-slate-300 mx-1"></div>
                  <div className="flex flex-col justify-center items-center">
                     <p className="text-[9px] font-bold uppercase tracking-wide leading-tight text-slate-800">
-                        Công Ty TNHH Năng Lượng Trí Việt Biogen
+                        Công Ty TNHH Trí Việt Biogen
                     </p>
-                    <p className="text-[10px] font-medium leading-tight text-slate-500 mt-0.5">
+                    <p className="text-[10px] font-medium leading-tight text-slate-500 mt-1">
                         Hệ thống đánh giá KPI
                     </p>
                  </div>
             </div>
 
              {/* Meta Info Box */}
-            <div className="flex bg-slate-50 border border-slate-200 rounded-lg overflow-hidden shadow-sm scale-90 origin-right">
-              <div className="px-3 py-1.5 border-r border-slate-200 flex flex-col items-center justify-center min-w-[80px]">
-                <span className="text-[8px] font-bold uppercase text-slate-400 flex items-center gap-1 mb-0.5">
+            <div className="flex bg-slate-50 border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+              <div className="px-4 py-2 border-r border-slate-200 flex flex-col items-center justify-center min-w-[90px]">
+                <span className="text-[9px] font-bold uppercase text-slate-400 flex items-center gap-1.5 mb-1">
                   <Calendar size={10} /> Kỳ đánh giá
                 </span>
-                <span className="text-blue-700 font-black text-[11px] whitespace-nowrap">
+                <span className="text-blue-700 font-black text-xs whitespace-nowrap">
                   THÁNG {month}/{year}
                 </span>
               </div>
-              <div className="px-3 py-1.5 border-r border-slate-200 flex flex-col items-center justify-center min-w-[80px]">
-                <span className="text-[8px] font-bold uppercase text-slate-400 flex items-center gap-1 mb-0.5">
+              <div className="px-4 py-2 border-r border-slate-200 flex flex-col items-center justify-center min-w-[90px]">
+                <span className="text-[9px] font-bold uppercase text-slate-400 flex items-center gap-1.5 mb-1">
                   <FileText size={10} /> Ngày lập
                 </span>
-                <span className="text-slate-800 font-bold text-[11px] whitespace-nowrap">
+                <span className="text-slate-800 font-bold text-xs whitespace-nowrap">
                   {reportDateObj.toLocaleDateString("vi-VN")}
                 </span>
               </div>
-              <div className="px-3 py-1.5 flex flex-col items-center justify-center min-w-[80px]">
-                <span className="text-[8px] font-bold uppercase text-slate-400 flex items-center gap-1 mb-0.5">
+              <div className="px-4 py-2 flex flex-col items-center justify-center min-w-[90px]">
+                <span className="text-[9px] font-bold uppercase text-slate-400 flex items-center gap-1.5 mb-1">
                   <Layers size={10} /> Mã biểu mẫu
                 </span>
-                <span className="font-bold text-[11px] text-slate-800 whitespace-nowrap">BM-KPI-01</span>
+                <span className="font-bold text-xs text-slate-800 whitespace-nowrap">BM-KPI-01</span>
               </div>
             </div>
         </div>
 
         {/* CENTER TITLE */}
-        <div className="text-center w-full mt-1">
-             <h1 className="text-2xl font-black text-blue-900 uppercase leading-tight tracking-tight mb-1">
+        <div className="text-center w-full">
+             <h1 className="text-3xl font-black text-blue-900 uppercase leading-tight tracking-tight mb-2">
                 ĐÁNH GIÁ HIỆU QUẢ CÔNG VIỆC
              </h1>
              <div className="flex items-center justify-center gap-4 opacity-80">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-slate-400"></div>
-                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em]">
+                <div className="h-px w-16 bg-gradient-to-r from-transparent to-slate-400"></div>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em]">
                     Performance Appraisal Report
                 </p>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-slate-400"></div>
+                <div className="h-px w-16 bg-gradient-to-l from-transparent to-slate-400"></div>
              </div>
         </div>
       </div>
@@ -121,36 +120,36 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
 
 
       {/* --- EMPLOYEE INFO (Single Row Compact) --- */}
-      <div className="bg-slate-50 border border-slate-200 rounded p-1.5 mb-2 grid grid-cols-4 gap-4 text-[10px]">
+      <div className="bg-slate-50 border border-slate-200 rounded p-2 mb-2 grid grid-cols-4 gap-4 text-[10px]">
          <div className="flex flex-col border-r border-slate-200 pr-2">
-            <span className="text-slate-500 uppercase text-[8px] mb-0.5">Họ và tên</span>
-            <span className="font-bold uppercase text-blue-900 text-[11px]">{employeeInfo.name || '................................'}</span>
+            <span className="text-slate-500 uppercase text-[9px] mb-0.5">Họ và tên</span>
+            <span className="font-bold uppercase text-blue-900 text-xs">{employeeInfo.name || '................................'}</span>
          </div>
          <div className="flex flex-col border-r border-slate-200 pr-2">
-            <span className="text-slate-500 uppercase text-[8px] mb-0.5">Mã nhân viên</span>
+            <span className="text-slate-500 uppercase text-[9px] mb-0.5">Mã nhân viên</span>
             <span className="font-bold text-slate-800">{employeeInfo.id || '................................'}</span>
          </div>
          <div className="flex flex-col border-r border-slate-200 pr-2">
-            <span className="text-slate-500 uppercase text-[8px] mb-0.5">Chức vụ</span>
+            <span className="text-slate-500 uppercase text-[9px] mb-0.5">Chức vụ</span>
             <span className="font-bold text-slate-800">{employeeInfo.position || '................................'}</span>
          </div>
          <div className="flex flex-col">
-            <span className="text-slate-500 uppercase text-[8px] mb-0.5">Bộ phận</span>
+            <span className="text-slate-500 uppercase text-[9px] mb-0.5">Bộ phận</span>
             <span className="font-bold text-slate-800">{employeeInfo.department || '................................'}</span>
          </div>
       </div>
 
       {/* --- DASHBOARD VISUALS (Adjusted Height) --- */}
-      <div className="grid grid-cols-3 gap-2 mb-2 h-24">
+      <div className="grid grid-cols-3 gap-2 mb-2 h-28">
          {/* KPI SCORE CARD */}
-         <div className="col-span-1 bg-white rounded border border-slate-200 p-1 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm">
+         <div className="col-span-1 bg-white rounded border border-slate-200 p-2 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 p-1 opacity-5">
-               <CheckCircle2 size={50} />
+               <CheckCircle2 size={60} />
             </div>
-            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Tổng Điểm</div>
-            <div className="text-3xl font-extrabold text-blue-900 leading-none mb-0.5">{Number(totalScore).toFixed(2)}</div>
-            <div className="text-slate-400 text-[8px] font-medium mb-1">/ {maxTotalScore} điểm tối đa</div>
-            <div className={`px-3 py-0.5 rounded-full text-[9px] font-bold border ${
+            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tổng Điểm</div>
+            <div className="text-4xl font-extrabold text-blue-900 leading-none mb-1">{Number(totalScore).toFixed(2)}</div>
+            <div className="text-slate-400 text-[10px] font-medium mb-1">/ {maxTotalScore} điểm tối đa</div>
+            <div className={`px-4 py-1 rounded-full text-[10px] font-bold border ${
                percent >= 90 ? 'bg-green-100 text-green-800 border-green-200' :
                percent >= 70 ? 'bg-blue-100 text-blue-800 border-blue-200' :
                'bg-red-100 text-red-800 border-red-200'
@@ -159,8 +158,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
             </div>
             
             {penaltyApplied && (
-               <div className="text-[8px] font-bold text-red-600 mt-1 flex items-center justify-center gap-1 bg-red-50 px-2 py-0.5 rounded border border-red-100">
-                 <AlertTriangle size={10} /> Đã trừ 30 điểm (Lỗi Yếu)
+               <div className="text-[10px] font-bold text-red-600 mt-2 flex items-center justify-center gap-1 bg-red-50 px-2 py-1 rounded border border-red-100">
+                 <AlertTriangle size={12} /> Đã trừ 30 điểm (Lỗi Yếu)
                </div>
             )}
          </div>
@@ -169,13 +168,13 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
          <div className="col-span-1 border border-slate-200 rounded p-1 relative shadow-sm flex items-center justify-center">
             <div className="absolute top-1 left-2 text-[8px] font-bold text-slate-500 uppercase tracking-wider">Cơ cấu điểm</div>
             <div className="w-full h-full flex items-center justify-center">
-                <PieChart width={180} height={100}>
+                <PieChart width={200} height={120}>
                 <Pie
                     data={categoryScores}
                     cx="50%"
                     cy="50%"
-                    innerRadius={20}
-                    outerRadius={35}
+                    innerRadius={25}
+                    outerRadius={45}
                     paddingAngle={2}
                     dataKey="score"
                     nameKey="shortName"
@@ -187,7 +186,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
                         const x = cx + radius * Math.cos(-midAngle * RADIAN);
                         const y = cy + radius * Math.sin(-midAngle * RADIAN);
                         return percent > 0.05 ? (
-                            <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={7} fontWeight="bold">
+                            <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontSize={8} fontWeight="bold">
                             {`${(percent * 100).toFixed(0)}%`}
                             </text>
                         ) : null;
@@ -197,7 +196,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                 </Pie>
-                <Legend iconSize={7} wrapperStyle={{ fontSize: '7px', bottom: 0 }} layout="horizontal" align="center" verticalAlign="bottom" />
+                <Legend iconSize={8} wrapperStyle={{ fontSize: '8px', bottom: 0 }} layout="horizontal" align="center" verticalAlign="bottom" />
                 </PieChart>
             </div>
          </div>
@@ -206,21 +205,21 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
          <div className="col-span-1 border border-slate-200 rounded p-1 relative shadow-sm flex items-center justify-center">
             <div className="absolute top-1 left-2 text-[8px] font-bold text-slate-500 uppercase tracking-wider">Chi tiết theo mục</div>
             <div className="w-full h-full flex items-center justify-center pl-2 pt-2">
-                <BarChart width={180} height={100} data={categoryScores} margin={{ top: 10, right: 5, left: -25, bottom: 0 }}>
+                <BarChart width={200} height={120} data={categoryScores} margin={{ top: 10, right: 5, left: -25, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                <XAxis dataKey="shortName" tick={{fontSize: 7, fill: '#0f172a', fontWeight: 600}} interval={0} />
-                <YAxis tick={{fontSize: 7, fill: '#64748b'}} domain={[0, 'dataMax']} />
-                <Bar dataKey="max" fill="#cbd5e1" radius={[2, 2, 0, 0]} barSize={8} name="Tối đa" isAnimationActive={false} />
-                <Bar dataKey="score" fill="#1e3a8a" radius={[2, 2, 0, 0]} barSize={8} name="Đạt được" isAnimationActive={false} />
-                <Legend iconSize={7} wrapperStyle={{ fontSize: '7px', paddingTop: '2px' }} />
+                <XAxis dataKey="shortName" tick={{fontSize: 8, fill: '#0f172a', fontWeight: 600}} interval={0} />
+                <YAxis tick={{fontSize: 8, fill: '#64748b'}} domain={[0, 'dataMax']} />
+                <Bar dataKey="max" fill="#cbd5e1" radius={[2, 2, 0, 0]} barSize={10} name="Tối đa" isAnimationActive={false} />
+                <Bar dataKey="score" fill="#1e3a8a" radius={[2, 2, 0, 0]} barSize={10} name="Đạt được" isAnimationActive={false} />
+                <Legend iconSize={8} wrapperStyle={{ fontSize: '8px', paddingTop: '5px' }} />
                 </BarChart>
             </div>
          </div>
       </div>
 
       {/* --- DETAILED TABLE (Condensed with p-1 padding) --- */}
-      <div className="mb-2 mt-2">
-         <h3 className="text-[9px] font-bold text-white bg-blue-900 uppercase py-0.5 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
+      <div className="mb-3 mt-3">
+         <h3 className="text-[10px] font-bold text-white bg-blue-900 uppercase py-1 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
          <div className="border-t-2 border-blue-900">
             <table className="w-full text-[9px] border-collapse">
                 <thead>
@@ -230,7 +229,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
                     <th className="border border-slate-300 p-1 text-center w-8">Max</th>
                     <th className="border border-slate-300 p-1 text-center w-8">Đạt</th>
                     <th className="border border-slate-300 p-1 text-center w-14">Xếp loại</th>
-                    <th className="border border-slate-300 p-1 text-left w-[30%]">Ghi chú</th>
+                    <th className="border border-slate-300 p-1 text-left w-[340px]">Ghi chú</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -260,7 +259,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
                                         rating.level === 'AVERAGE' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
                                         'bg-red-50 text-red-700 border-red-200'
                                         }`}>
-                                        {rating.level === 'GOOD' ? 'TỐT' : rating.level === 'AVERAGE' ? 'TBÌNH' : 'YẾU'}
+                                        {rating.level === 'GOOD' ? 'TỐT' : rating.level === 'AVERAGE' ? 'TRUNG BÌNH' : 'YẾU'}
                                         </span>
                                     ) : <span className="text-slate-300">-</span>}
                                 </td>
@@ -276,19 +275,19 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- SIGNATURES (Bottom Positioned) --- */}
-      <div className="grid grid-cols-3 gap-8 mt-4">
+      <div className="grid grid-cols-3 gap-8 mt-5">
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-24 text-slate-800">Người được đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-24 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-24 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
