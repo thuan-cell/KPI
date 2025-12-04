@@ -85,7 +85,7 @@
       @media print {
         @page { 
           size: A4 portrait; 
-          margin: 5mm; 
+          margin: 0mm; /* RESET MARGINS TO 0 TO ALLOW CSS PADDING TO CONTROL LAYOUT PRECISELY */
         }
         
         /* 
@@ -99,6 +99,8 @@
           height: auto;
           width: auto;
           overflow: visible !important;
+          margin: 0 !important;
+          padding: 0 !important;
         }
 
         /* Only make the specific dashboard container visible */
