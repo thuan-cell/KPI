@@ -7,7 +7,7 @@ import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import { EvaluationState, RatingLevel, EmployeeInfo } from './types';
 import { KPI_DATA } from './constants';
-import { User, CreditCard, Upload, Printer, X, Calendar } from 'lucide-react';
+import { User, CreditCard, Upload, Printer, X, Calendar, Award, Star, ShieldCheck, AlertOctagon } from 'lucide-react';
 import DashboardReport from './components/DashboardReport';
 import { authService, UserAccount } from './services/authService';
 
@@ -167,7 +167,7 @@ function App() {
         totalScore -= 30;
     }
 
-    // Ensure non-negative score
+    // Ensure score is not negative
     if (totalScore < 0) totalScore = 0;
 
     totalScore = Math.round(totalScore * 100) / 100;
@@ -351,35 +351,64 @@ function App() {
                   onNoteChange={handleNoteChange} 
                 />
 
-                <div className="p-6 md:p-8 rounded-[20px] bg-slate-900 dark:bg-[#0f172a] text-white overflow-hidden relative shadow-2xl">
-                     <div className="relative z-10">
-                        <div className="flex items-center gap-3 mb-6">
-                            <h3 className="text-lg font-bold uppercase tracking-widest">Tiêu chuẩn xếp loại</h3>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-900/20 border border-emerald-500/20 relative group hover:border-emerald-500/40 transition-colors">
-                                <div className="flex justify-between items-start mb-3">
-                                    <span className="font-black text-emerald-400 text-lg">XUẤT SẮC</span>
-                                    <span className="px-2 py-1 bg-emerald-500 text-white text-[10px] font-bold rounded">90 - 100 điểm</span>
-                                </div>
-                                <p className="text-xs text-slate-300 leading-relaxed">Hoàn thành xuất sắc nhiệm vụ, không xảy ra sự cố, tuân thủ tuyệt đối quy trình.</p>
-                            </div>
-                            <div className="p-5 rounded-2xl bg-gradient-to-br from-blue-500/10 to-blue-900/20 border border-blue-500/20 relative group hover:border-blue-500/40 transition-colors">
-                                <div className="flex justify-between items-start mb-3">
-                                    <span className="font-black text-blue-400 text-lg">ĐẠT YÊU CẦU</span>
-                                    <span className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded">70 - 90 điểm</span>
-                                </div>
-                                <p className="text-xs text-slate-300 leading-relaxed">Hoàn thành nhiệm vụ được giao, còn sai sót nhỏ nhưng đã khắc phục kịp thời.</p>
-                            </div>
-                            <div className="p-5 rounded-2xl bg-gradient-to-br from-rose-500/10 to-rose-900/20 border border-rose-500/20 relative group hover:border-rose-500/40 transition-colors">
-                                <div className="flex justify-between items-start mb-3">
-                                    <span className="font-black text-rose-400 text-lg">KHÔNG ĐẠT</span>
-                                    <span className="px-2 py-1 bg-rose-500 text-white text-[10px] font-bold rounded">&lt; 70 điểm</span>
-                                </div>
-                                <p className="text-xs text-slate-300 leading-relaxed">Vi phạm quy trình vận hành, để xảy ra sự cố nghiêm trọng hoặc thiếu trách nhiệm.</p>
-                            </div>
-                        </div>
-                     </div>
+                <div className="bg-white/80 dark:bg-[#0f172a]/60 backdrop-blur-xl rounded-[24px] shadow-sm hover:shadow-xl border border-white/60 dark:border-white/5 overflow-hidden transition-all duration-300">
+                  
+                  {/* Header */}
+                  <div className="px-5 py-5 md:px-8 border-b border-slate-100 dark:border-white/5 flex items-center gap-4 bg-slate-50/50 dark:bg-slate-900/30">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20 shadow-inner shrink-0">
+                       <Award size={24} strokeWidth={2} />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-bold text-slate-800 dark:text-white uppercase tracking-tight">Tiêu chuẩn xếp loại</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">Quy định về thang điểm đánh giá hiệu suất</p>
+                    </div>
+                  </div>
+
+                  {/* Grid Content */}
+                  <div className="p-5 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                      
+                      {/* Item 1: Xuất Sắc */}
+                      <div className="relative group p-5 rounded-2xl border border-emerald-100 dark:border-emerald-500/20 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1">
+                         <div className="flex items-center justify-between mb-3">
+                             <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 shadow-sm">
+                                <Star size={20} fill="currentColor" className="opacity-100" />
+                             </div>
+                             <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-400 bg-white dark:bg-emerald-900/40 border border-emerald-200 dark:border-emerald-500/30 px-2.5 py-1.5 rounded-lg shadow-sm">90 - 100 điểm</span>
+                         </div>
+                         <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 uppercase mb-2">Xuất Sắc</h4>
+                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                            Hoàn thành xuất sắc nhiệm vụ, không xảy ra sự cố, tuân thủ tuyệt đối quy trình.
+                         </p>
+                      </div>
+
+                      {/* Item 2: Đạt Yêu Cầu */}
+                      <div className="relative group p-5 rounded-2xl border border-blue-100 dark:border-blue-500/20 bg-blue-50/50 dark:bg-blue-950/20 hover:bg-blue-100/50 dark:hover:bg-blue-900/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1">
+                         <div className="flex items-center justify-between mb-3">
+                             <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 shadow-sm">
+                                <ShieldCheck size={20} />
+                             </div>
+                             <span className="text-[10px] font-black uppercase tracking-wider text-blue-700 dark:text-blue-400 bg-white dark:bg-blue-900/40 border border-blue-200 dark:border-blue-500/30 px-2.5 py-1.5 rounded-lg shadow-sm">70 - 90 điểm</span>
+                         </div>
+                         <h4 className="text-sm font-bold text-blue-800 dark:text-blue-300 uppercase mb-2">Đạt Yêu Cầu</h4>
+                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                            Hoàn thành nhiệm vụ được giao, còn sai sót nhỏ nhưng đã khắc phục kịp thời.
+                         </p>
+                      </div>
+
+                      {/* Item 3: Không Đạt */}
+                      <div className="relative group p-5 rounded-2xl border border-rose-100 dark:border-rose-500/20 bg-rose-50/50 dark:bg-rose-950/20 hover:bg-rose-100/50 dark:hover:bg-rose-900/30 transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/10 hover:-translate-y-1">
+                         <div className="flex items-center justify-between mb-3">
+                             <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 shadow-sm">
+                                <AlertOctagon size={20} />
+                             </div>
+                             <span className="text-[10px] font-black uppercase tracking-wider text-rose-700 dark:text-rose-400 bg-white dark:bg-rose-900/40 border border-rose-200 dark:border-rose-500/30 px-2.5 py-1.5 rounded-lg shadow-sm">&lt; 70 điểm</span>
+                         </div>
+                         <h4 className="text-sm font-bold text-rose-800 dark:text-rose-300 uppercase mb-2">Không Đạt</h4>
+                         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                            Vi phạm quy trình vận hành, để xảy ra sự cố nghiêm trọng hoặc thiếu trách nhiệm.
+                         </p>
+                      </div>
+                  </div>
                 </div>
               </div>
             </div>
