@@ -49,7 +49,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
     <div className="bg-white text-slate-900 font-sans w-full p-[6mm] relative box-border flex flex-col h-full min-h-[285mm]">
 
       {/* ---------------- HEADER ---------------- */}
-      <div className="border-b-2 border-slate-900 pb-4 mb-4 print:mb-4">
+      <div className="border-b-2 border-slate-900 pb-4 mb-4">
         
         {/* TOP ROW: LOGO & META INFO */}
         <div className="flex justify-between items-center mb-4">
@@ -119,7 +119,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
 
 
       {/* --- EMPLOYEE INFO (Single Row Compact) --- */}
-      <div className="bg-slate-50 border border-slate-200 rounded p-3 mb-3 print:p-2 print:mb-2 grid grid-cols-4 gap-4 text-[10px]">
+      <div className="bg-slate-50 border border-slate-200 rounded p-2 mb-2 grid grid-cols-4 gap-4 text-[10px]">
          <div className="flex flex-col border-r border-slate-200 pr-2">
             <span className="text-slate-500 uppercase text-[9px] mb-0.5">Họ và tên</span>
             <span className="font-bold uppercase text-blue-900 text-xs">{employeeInfo.name || '................................'}</span>
@@ -139,15 +139,15 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- DASHBOARD VISUALS (Adjusted Height) --- */}
-      <div className="grid grid-cols-3 gap-2 mb-3 h-40 print:h-28 print:mb-2">
+      <div className="grid grid-cols-3 gap-2 mb-2 h-28">
          {/* KPI SCORE CARD */}
          <div className="col-span-1 bg-white rounded border border-slate-200 p-2 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 p-1 opacity-5">
                <CheckCircle2 size={60} />
             </div>
-            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 print:mb-1">Tổng Điểm</div>
-            <div className="text-5xl font-extrabold text-blue-900 leading-none mb-1 print:text-4xl">{Number(totalScore).toFixed(2)}</div>
-            <div className="text-slate-400 text-[10px] font-medium mb-3 print:mb-1">/ {maxTotalScore} điểm tối đa</div>
+            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Tổng Điểm</div>
+            <div className="text-4xl font-extrabold text-blue-900 leading-none mb-1">{Number(totalScore).toFixed(2)}</div>
+            <div className="text-slate-400 text-[10px] font-medium mb-1">/ {maxTotalScore} điểm tối đa</div>
             <div className={`px-4 py-1 rounded-full text-[10px] font-bold border ${
                percent >= 90 ? 'bg-green-100 text-green-800 border-green-200' :
                percent >= 70 ? 'bg-blue-100 text-blue-800 border-blue-200' :
@@ -217,8 +217,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- DETAILED TABLE (Condensed with p-1 padding) --- */}
-      {/* Adjusted print margin-top to 3 as requested to move content slightly down */}
-      <div className="mb-3 mt-8 print:mt-3">
+      <div className="mb-3 mt-3">
          <h3 className="text-[10px] font-bold text-white bg-blue-900 uppercase py-1 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
          <div className="border-t-2 border-blue-900">
             <table className="w-full text-[9px] border-collapse">
@@ -275,25 +274,19 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- SIGNATURES (Bottom Positioned) --- */}
-      {/* 
-          ADJUSTMENTS:
-          Web View: mt-4, mb-8
-          Print View: print:mt-5 (moved up to close gap with table), print:mb-28 (increased gap for signing space)
-          Layout: 100% identical grid structure
-      */}
-      <div className="grid grid-cols-3 gap-8 mt-4 print:mt-5">
+      <div className="grid grid-cols-3 gap-8 mt-5">
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-8 print:mb-28 text-slate-800">Người được đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-8 print:mb-28 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-8 print:mb-28 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
