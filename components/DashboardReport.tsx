@@ -46,13 +46,13 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e'];
 
   return (
-    <div className="bg-white text-slate-900 font-sans w-full p-[8mm] relative box-border flex flex-col h-full min-h-[297mm]">
+    <div className="bg-white text-slate-900 font-sans w-full p-[6mm] relative box-border flex flex-col h-full min-h-[285mm]">
 
       {/* ---------------- HEADER ---------------- */}
-      <div className="border-b-2 border-slate-900 pb-6 mb-6 print:mb-6">
+      <div className="border-b-2 border-slate-900 pb-4 mb-4 print:mb-4">
         
         {/* TOP ROW: LOGO & META INFO */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-4">
             
             {/* Logo Section */}
             <div className="flex items-center gap-4">
@@ -138,8 +138,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
          </div>
       </div>
 
-      {/* --- DASHBOARD VISUALS (Adjusted Height to h-40 normally, but h-32 when printing) --- */}
-      <div className="grid grid-cols-3 gap-2 mb-3 h-40 print:h-32 print:mb-2">
+      {/* --- DASHBOARD VISUALS (Adjusted Height) --- */}
+      <div className="grid grid-cols-3 gap-2 mb-3 h-40 print:h-28 print:mb-2">
          {/* KPI SCORE CARD */}
          <div className="col-span-1 bg-white rounded border border-slate-200 p-2 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-sm">
             <div className="absolute top-0 right-0 p-1 opacity-5">
@@ -217,8 +217,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- DETAILED TABLE (Condensed with p-1 padding) --- */}
-      {/* Adjusted print margin-top to 6 as requested */}
-      <div className="mb-3 mt-11 print:mt-6">
+      {/* Adjusted print margin-top to 4 as requested */}
+      <div className="mb-3 mt-8 print:mt-4">
          <h3 className="text-[10px] font-bold text-white bg-blue-900 uppercase py-1 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
          <div className="border-t-2 border-blue-900">
             <table className="w-full text-[9px] border-collapse">
@@ -275,20 +275,20 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- SIGNATURES (Bottom Positioned) --- */}
-      {/* Adjusted spacing for print to 8 as requested */}
-      <div className="grid grid-cols-3 gap-8 mt-auto pt-2 print:mt-8">
+      {/* Adjusted spacing for print to 4 as requested, and mb for signature title */}
+      <div className="grid grid-cols-3 gap-8 mt-auto pt-2 print:mt-1">
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-12 print:mb-16 text-slate-800">Người được đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-10 print:mb-8 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-12 print:mb-16 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-10 print:mb-8 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-12 print:mb-16 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-10 print:mb-8 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
