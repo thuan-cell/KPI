@@ -314,19 +314,19 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       {/* Tăng/giảm số cột ở grid-cols-3, chỉnh khoảng cách cột ở gap-8 */}
       <div className="grid grid-cols-3 gap-8 mt-5">
          <div className="text-center">
-            {/* Tiêu đề người ký, chỉnh margin dưới ở mb-28 */}
-            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Người được đánh giá</div>
+            {/* Tiêu đề người ký, chỉnh margin dưới ở mb-20 */}
+            <div className="font-bold text-[9px] uppercase mb-24 text-slate-800">Người được đánh giá</div>
             {/* Chỉnh nét gạch tay ký và font ở đây */}
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-24 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-28 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-24 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
