@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { KPI_DATA } from '../constants';
 import { EvaluationState, EmployeeInfo } from '../types';
@@ -46,7 +47,10 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e'];
 
   return (
-    <div className="bg-white text-slate-900 font-sans w-full p-[6mm] relative box-border flex flex-col h-full min-h-[285mm]">
+    // ADJUSTED PADDING FOR PRINT OFFSET
+    // Original was p-[6mm]. To shift left 0.5cm (5mm), we reduce left padding and increase right padding.
+    // New: pl-[1mm] pr-[11mm] py-[6mm] (Total horizontal padding remains similar but shifted)
+    <div className="bg-white text-slate-900 font-sans w-full pl-[1mm] pr-[11mm] py-[6mm] relative box-border flex flex-col h-full min-h-[285mm]">
 
       {/* ---------------- HEADER ---------------- */}
       <div className="border-b-2 border-slate-900 pb-4 mb-4">
