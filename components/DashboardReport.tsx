@@ -217,8 +217,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- DETAILED TABLE (Condensed with p-1 padding) --- */}
-      {/* Adjusted print margin-top to 4 as requested */}
-      <div className="mb-3 mt-8 print:mt-4">
+      {/* Adjusted print margin-top to 2 as requested to move content up */}
+      <div className="mb-3 mt-8 print:mt-2">
          <h3 className="text-[10px] font-bold text-white bg-blue-900 uppercase py-1 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
          <div className="border-t-2 border-blue-900">
             <table className="w-full text-[9px] border-collapse">
@@ -277,23 +277,23 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       {/* --- SIGNATURES (Bottom Positioned) --- */}
       {/* 
           ADJUSTMENTS:
-          Web View: mt-4 (moved up from mt-auto), mb-8 (moved up from mb-10)
-          Print View: print:mt-10 (moved down from print:mt-1), print:mb-20 (moved down from print:mb-8)
+          Web View: mt-4, mb-8
+          Print View: print:mt-5 (moved up to close gap with table), print:mb-28 (increased gap for signing space)
           Layout: 100% identical grid structure
       */}
-      <div className="grid grid-cols-3 gap-8 mt-4 print:mt-10">
+      <div className="grid grid-cols-3 gap-8 mt-4 print:mt-5">
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-8 print:mb-20 text-slate-800">Người được đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-8 print:mb-28 text-slate-800">Người được đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[9px] font-bold text-slate-900 uppercase">
                 {employeeInfo.name || ''}
             </div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-8 print:mb-20 text-slate-800">Người đánh giá</div>
+            <div className="font-bold text-[9px] uppercase mb-8 print:mb-28 text-slate-800">Người đánh giá</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
          <div className="text-center">
-            <div className="font-bold text-[9px] uppercase mb-8 print:mb-20 text-slate-800">Giám đốc phê duyệt</div>
+            <div className="font-bold text-[9px] uppercase mb-8 print:mb-28 text-slate-800">Giám đốc phê duyệt</div>
             <div className="border-t border-slate-300 w-24 mx-auto pt-1 text-[8px] text-slate-400 italic">Ký & ghi rõ họ tên</div>
          </div>
       </div>
