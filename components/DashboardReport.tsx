@@ -217,8 +217,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
       </div>
 
       {/* --- DETAILED TABLE (Condensed with p-1 padding) --- */}
-      {/* Adjusted print margin-top to 2 as requested to move content up */}
-      <div className="mb-3 mt-8 print:mt-2">
+      {/* Adjusted print margin-top to 3 as requested to move content slightly down */}
+      <div className="mb-3 mt-8 print:mt-3">
          <h3 className="text-[10px] font-bold text-white bg-blue-900 uppercase py-1 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
          <div className="border-t-2 border-blue-900">
             <table className="w-full text-[9px] border-collapse">
