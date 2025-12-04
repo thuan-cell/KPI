@@ -247,7 +247,7 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
 
       {/* --- BẢNG CHI TIẾT ĐIỂM (Thu nhỏ, viền và chữ nhỏ) --- */}
       {/* Chỉnh margin trên/dưới của bảng  mb-3 mt-10 */}
-      <div className="mb-3 mt-10">
+      <div className="mb-2 mt-5">
          {/* Tiêu đề bảng chi tiết, đổi màu ở bg-blue-900, kích cỡ ở text-[10px], padding py-1 px-2 */}
          <h3 className="text-[10px] font-bold text-white bg-blue-900 uppercase py-1 px-2 mb-0 rounded-t inline-block">Bảng điểm chi tiết</h3>
          <div className="border-t-2 border-blue-900">
