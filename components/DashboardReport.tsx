@@ -46,9 +46,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e'];
 
   return (
-    // ADJUSTED PADDING FOR TIGHTER MARGINS (5mm)
-    // px-[5mm] creates a balanced 0.5cm margin on left and right.
-    <div className="bg-white text-slate-900 font-sans w-full px-[5mm] py-[5mm] relative box-border flex flex-col h-full min-h-[297mm]">
+    // ADJUSTED PADDING FOR SAFER MARGINS (approx 8.5mm / 32px)
+    <div className="bg-white text-slate-900 font-sans w-full px-8 py-8 relative box-border flex flex-col h-full min-h-[297mm]">
 
       {/* ---------------- HEADER ---------------- */}
       <div className="border-b-2 border-slate-900 pb-2 mb-2">
