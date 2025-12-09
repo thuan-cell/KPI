@@ -1,5 +1,3 @@
-
-
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import InputSection from './components/InputSection';
 import ResultsPanel from './components/ResultsPanel';
@@ -321,25 +319,27 @@ function App() {
                     <div className="space-y-2">
                         <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1">Kỳ đánh giá</label>
                         <div className="relative group/input">
-                            <Calendar className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors" size={18} />
                             <input 
                                 type="month"
-                                className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white shadow-inner"
+                                className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white shadow-inner cursor-pointer [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0"
                                 value={selectedMonth}
                                 onChange={(e) => setSelectedMonth(e.target.value)}
+                                onClick={(e) => {try{e.currentTarget.showPicker()}catch(err){}}}
                             />
+                            <Calendar className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors pointer-events-none" size={18} />
                         </div>
                     </div>
                     <div className="space-y-2">
                         <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide ml-1">Ngày lập</label>
                         <div className="relative group/input">
-                            <Calendar className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors" size={18} />
                             <input 
                                 type="date"
-                                className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white shadow-inner"
+                                className="w-full bg-slate-50 dark:bg-[#0f172a]/80 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-sm font-semibold focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all dark:text-white shadow-inner cursor-pointer [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0"
                                 value={employeeInfo.reportDate}
                                 onChange={(e) => handleInfoChange('reportDate', e.target.value)}
+                                onClick={(e) => {try{e.currentTarget.showPicker()}catch(err){}}}
                             />
+                            <Calendar className="absolute left-4 top-3.5 text-slate-400 group-focus-within/input:text-indigo-500 transition-colors pointer-events-none" size={18} />
                         </div>
                     </div>
                   </div>
