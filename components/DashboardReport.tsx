@@ -46,8 +46,8 @@ const DashboardReport: React.FC<DashboardReportProps> = ({
   const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#f43f5e'];
 
   return (
-    // ADJUSTED PADDING FOR SAFER MARGINS (approx 8.5mm / 32px)
-    <div className="bg-white text-slate-900 font-sans w-full px-8 py-8 relative box-border flex flex-col h-full min-h-[297mm]">
+    // UPDATED: Reduced padding (px-6 py-6) and removed fixed height/min-height constraints for better print flow
+    <div className="bg-white text-slate-900 font-sans w-full px-6 py-6 relative box-border flex flex-col">
 
       {/* ---------------- HEADER ---------------- */}
       <div className="border-b-2 border-slate-900 pb-2 mb-2">
